@@ -4,30 +4,61 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity('email')]
 class User
 {
+    //ATTRIBUTES
+        //id
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
+        //firstname
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 2,
+        max: 255,
+        minMessage: 'The firstname must be at least {{ limit }} characters long',
+        maxMessage: 'The firstname cannot be longer than {{ limit }} characters',
+    )]
     private $firstname;
 
+        //name
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 2,
+        max: 255,
+        minMessage: 'The name must be at least {{ limit }} characters long',
+        maxMessage: 'The name cannot be longer than {{ limit }} characters',
+    )]
     private $name;
 
-    #[ORM\Column(type: 'string', length: 255)]
+        //email
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
+    #[Assert\Email(
+        message: 'The email {{ value }} is not a valid email.',
+    )]
     private $email;
 
+        //password
     #[ORM\Column(type: 'text')]
+    #[Assert\NotBlank]
     private $password;
 
+        //status
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Choice(['admin', 'user'])]
     private $status;
 
+    //GETTERS AND SETTERS
     public function getId(): ?int
     {
         return $this->id;
