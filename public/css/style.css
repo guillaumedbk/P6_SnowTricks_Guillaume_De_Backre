@@ -1,12 +1,44 @@
+h1{
+    font-size: 5em;
+}
+
+nav ul li, a{
+    font-size: 1.1em;
+}
 /*VERSION MOBILE*/
-@media screen and (max-width: 1024px)
+@media screen and (max-width: 1023px)
 {
+    .navigation-desktop{
+        display:none !important;
+    }
+    /*GRID STRUCTURE HEADER & BANNER HOMEPAGE*/
+    body{
+        margin:0;
+    }
+    .my-container{
+        width: 100vw;
+        height:100vh;
+
+        display:grid;
+
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 75px;
+    }
+    .content-large{
+        grid-row-start: 0;
+        grid-row-end: 2;
+        grid-column-start: 1;
+        grid-column-end: 4;
+    }
+    /*END GRID STRUCTURE*/
+
+    /*NAVIGATION*/
     .navigation-mobile{
         background: #f1f1f1;
         position: fixed;
         bottom:0;
         display: flex;
-        height: 65px;
+        height: 75px;
         width: 100%;
         justify-content: space-around;
         z-index:999;
@@ -19,29 +51,59 @@
     .bloc-icon img{
         width: 30px;
     }
+    /*END NAVIGATION*/
 
-    .navigation-desktop {
-        display: none;
-    }
+    /*BANNER*/
     .banner-image{
-        width: 100%;
+        width : 100%;
+        height: 100%;
+        object-fit: cover;
     }
-    .fleche-bas{
-        width:35%;
+    .titre-banner{
         position: absolute;
-        bottom:7%; right:3%;
-    }
-}
-
-@media screen and (min-width: 500px){
-    .navigation-mobile{
-        display:none;
+        top: 55%; left:5%;
+        font-size: 1.9em;
+        font-style: italic;
     }
     .fleche-bas{
         width:20%;
         position: absolute;
-        bottom:5%; right:3%;
+        bottom:10%; right:3%;
     }
+    /*END BANNER*/
+}
+/*VERSION DESKTOP*/
+@media screen and (min-width: 1024px){
+    .navigation-mobile{
+        display:none;
+    }
+    /*GRID STRUCTURE*/
+    body{
+        margin:0;
+        overflow-x: hidden;
+    }
+    .my-container{
+        width: 100vw;
+        height:100vh;
+
+        display:grid;
+
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 75px 1fr 1fr;
+    }
+    .header{
+        grid-column-start: 1;
+        grid-column-end: 4;
+    }
+    .content-large{
+        grid-row-start: 2;
+        grid-row-end: span 2;
+        grid-column-start: 1;
+        grid-column-end: 4;
+    }
+    /*END GRID STRUCTURE*/
+
+    /*NAVIGATION*/
     .liens-navigation{
         list-style-type: none;
         display: flex;
@@ -54,19 +116,48 @@
         text-decoration: none;
         color:black;
     }
+    /*END NAVIGATION*/
+
+    /*BANNER*/
     .banner-image{
-        display: none;
-    }
-    .container-banner{
-        background-image: url("/images/snowTricks.jpg");
-        background-size: cover;
-        background-position: 50% 90%;
-        width:100%;
-        position: relative;
-        min-height: 100vh;
+        width : 100%;
+        height: 100%;
+        object-fit: cover;
     }
     .titre-banner{
         position: absolute;
         top: 55%; left:5%;
+        font-size: 1.5em;
+        font-style: italic;
     }
+    .fleche-bas{
+        width:20%;
+        position: absolute;
+        bottom:5%; right:3%;
+    }
+    /*END BANNER*/
+
+    /*ALL TRICKS*/
+    /*GRID STRUCTURE FOR ALL TRICKS*/
+
+    .grid-container {
+        height: 100vh;
+        display: grid;
+
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+
+        padding: 10px;
+        margin:1em;
+
+        gap: 50px;
+    }
+    .grid-item {
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        font-size: 1em;
+        text-align: center;
+
+    }
+    /*END GRID STRUCTURE*/
 }
