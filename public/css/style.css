@@ -1,0 +1,72 @@
+/*VERSION MOBILE*/
+@media screen and (max-width: 1024px)
+{
+    .navigation-mobile{
+        background: #f1f1f1;
+        position: fixed;
+        bottom:0;
+        display: flex;
+        height: 65px;
+        width: 100%;
+        justify-content: space-around;
+        z-index:999;
+    }
+    .bloc-icon{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .bloc-icon img{
+        width: 30px;
+    }
+
+    .navigation-desktop {
+        display: none;
+    }
+    .banner-image{
+        width: 100%;
+    }
+    .fleche-bas{
+        width:35%;
+        position: absolute;
+        bottom:7%; right:3%;
+    }
+}
+
+@media screen and (min-width: 500px){
+    .navigation-mobile{
+        display:none;
+    }
+    .fleche-bas{
+        width:20%;
+        position: absolute;
+        bottom:5%; right:3%;
+    }
+    .liens-navigation{
+        list-style-type: none;
+        display: flex;
+    }
+    .container{
+        display: flex;
+        justify-content: space-between;
+    }
+    .liens{
+        text-decoration: none;
+        color:black;
+    }
+    .banner-image{
+        display: none;
+    }
+    .container-banner{
+        background-image: url("/images/snowTricks.jpg");
+        background-size: cover;
+        background-position: 50% 90%;
+        width:100%;
+        position: relative;
+        min-height: 100vh;
+    }
+    .titre-banner{
+        position: absolute;
+        top: 55%; left:5%;
+    }
+}
