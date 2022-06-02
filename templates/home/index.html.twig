@@ -1,4 +1,34 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+    <div class="my-container">
+        <!-- HEADER -->
+        <div class="header">
+            {% include 'header.html.twig' %}
+        </div>
 
+        <!-- BANNER -->
+        <div class="content-large">
+            <img src="{{ asset('images/snowTricks.jpg') }}" alt="snowTricks-banner" class="banner-image">
+            <div class="titre-banner">
+                <h1 class="text-warning">SnowTricks</h1>
+                <p class="text-light">Un site communautaire pour apprendre les figures de snowboard.</p>
+            </div>
+            <div class="fleche-bas">
+                <img src="{{ asset('images/fleche-vers-le-bas.png') }}" alt="snowTricks-banner" class="fleche-bas">
+            </div>
+        </div>
+    </div>
+
+    <!-- DISPLAY NINE TRCIKS -->
+    <div class="grid-container">
+        <div class="card grid-item">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+
+    </div>
 {% endblock %}
