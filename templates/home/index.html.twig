@@ -21,14 +21,18 @@
 
     <!-- DISPLAY NINE TRCIKS -->
     <div class="grid-container">
-        <div class="card grid-item">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-
+    {% if tricks %}
+        {% for figure in tricks %}
+                <div class="card grid-item">
+                    <img src={{ figure.imageUrl }} class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ figure.title }}</h5>
+                        <p class="card-text">{{ figure.description }}</p>
+                        <a href="#" class="btn btn-primary">Voir plus</a>
+                    </div>
+                </div>
+        {% endfor %}
+    {% endif %}
     </div>
+
 {% endblock %}
