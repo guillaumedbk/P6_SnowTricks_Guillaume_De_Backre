@@ -30,6 +30,9 @@ nav ul li, a{
         grid-column-start: 1;
         grid-column-end: 4;
     }
+    .grid-container{
+        margin-bottom: 5em;
+    }
     /*END GRID STRUCTURE*/
 
     /*NAVIGATION*/
@@ -80,6 +83,12 @@ nav ul li, a{
         border-radius: 15px;
     }
     /*END TRICKS CARD*/
+
+    /*FOOTER*/
+    #footer{
+        display:none !important;
+    }
+    /*END FOOTER*/
 }
 /*VERSION DESKTOP*/
 @media screen and (min-width: 1024px){
@@ -213,4 +222,10 @@ nav ul li, a{
         font-size: 4.5em;
         justify-self: end;
     }
+
+    /*FOOTER*/
+    footer{
+        height:3rem;
+    }
+    /*END FOOTER*/
 }
