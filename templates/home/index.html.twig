@@ -20,13 +20,15 @@
     </div>
 
     <!-- DISPLAY TRICKS -->
-    <div class="grid-container">
+    <div class="grid-container" id="tricks-part-homepage">
         {% if tricks %}
                 {% for figure in tricks %}
-                        <div class="card grid-item">
+                        <div class="card grid-item d-flex justify-content-between">
                             <img src={{ figure.imageUrl }} class="card-img-top" alt={{ figure.title }}>
-                            <div class="card-body">
+                            <div class="card-body d-flex justify-content-around align-items-center">
                                 <h5 class="card-title">{{ figure.title }}</h5>
+                                <i class="fa-solid fa-pencil"></i>
+                                <i class="fa-solid fa-trash-can"></i>
                             </div>
                         </div>
                 {% endfor%}
@@ -37,7 +39,7 @@
                     </div>
 
                     <div class="fleche-haut d-flex justify-content-end">
-                        <i class="fa-solid fa-arrow-up"></i>
+                        <a href="#tricks-part-homepage"><i class="fa-solid fa-arrow-up"></i></a>
                     </div>
                 {% endif %}
 
