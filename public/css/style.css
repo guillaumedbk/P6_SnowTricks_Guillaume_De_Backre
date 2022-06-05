@@ -1,5 +1,5 @@
 h1{
-    font-size: 5em;
+    font-size: 5rem;
 }
 
 nav ul li, a{
@@ -131,9 +131,10 @@ nav ul li, a{
         font-style: italic;
     }
     .fleche-bas{
-        width:20%;
+        font-size: 2.2em;
         position: absolute;
-        bottom:5%; right:3%;
+        bottom:5%; right:5%;
+        color: black;
     }
     /*END BANNER*/
 
@@ -141,18 +142,37 @@ nav ul li, a{
 
     /*GRID STRUCTURE FOR ALL TRICKS*/
     .grid-container {
-        height: 100vh;
         display: grid;
 
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr 100px;
 
         padding: 10px;
-        margin:1em;
+        margin:2em;
+        margin-top: 3em;
 
         gap: 30px;
     }
     /*END GRID STRUCTURE*/
+
+    /*LOAD MORE CONFIGURATION*/
+    .grid-container .card{
+        display: none;
+    }
+        /*DISPLAY TEN ELEMENT*/
+    .grid-container .card:nth-child(1),
+    .grid-container .card:nth-child(2),
+    .grid-container .card:nth-child(3),
+    .grid-container .card:nth-child(4),
+    .grid-container .card:nth-child(5),
+    .grid-container .card:nth-child(6),
+    .grid-container .card:nth-child(7),
+    .grid-container .card:nth-child(8),
+    .grid-container .card:nth-child(9),
+    .grid-container .card:nth-child(10)
+    {
+        display: grid;
+    }
+    /*END LOAD MORE CONFIG*/
 
     /*CARDS TRICKS*/
     .grid-item {
@@ -161,12 +181,24 @@ nav ul li, a{
         text-transform: capitalize;
     }
     .card-img-top{
-        height : 60%;
+        min-height: 100%;
         object-fit: cover;
     }
     .card{
-        height : 50%;
+        height : 100%;
     }
+    /*END CARDS*/
 
-
+    /*BOUTONS*/
+    #loading{
+        grid-column: 3 / 4;
+        grid-row: 4 / 5;
+        justify-self: center;
+    }
+    .fleche-haut{
+        grid-column: 5 / 6;
+        grid-row: 4 / 5;
+        font-size: 4.5em;
+        justify-self: end;
+    }
 }

@@ -14,23 +14,33 @@
                 <p class="text-light">Un site communautaire pour apprendre les figures de snowboard.</p>
             </div>
             <div class="fleche-bas">
-                <img src="{{ asset('images/fleche-vers-le-bas.png') }}" alt="snowTricks-banner" class="fleche-bas">
+                <i class="fa-solid fa-arrow-down fleche-bas"></i>
             </div>
         </div>
     </div>
 
-    <!-- DISPLAY TRCIKS -->
+    <!-- DISPLAY TRICKS -->
     <div class="grid-container">
-    {% if tricks %}
-        {% for figure in tricks %}
-                <div class="card grid-item">
-                    <img src={{ figure.imageUrl }} class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ figure.title }}</h5>
-                    </div>
-                </div>
-        {% endfor %}
-    {% endif %}
-    </div>
+        {% if tricks %}
+                {% for figure in tricks %}
+                        <div class="card grid-item">
+                            <img src={{ figure.imageUrl }} class="card-img-top" alt={{ figure.title }}>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ figure.title }}</h5>
+                            </div>
+                        </div>
+                {% endfor%}
 
+                {% if tricks |length  > 10 %}
+                    <div id="loading">
+                        <button type="button" id="load-more" class="btn btn-lg btn-outline-warning" onclick="addMore()">Load more</button>
+                    </div>
+
+                    <div class="fleche-haut d-flex justify-content-end">
+                        <i class="fa-solid fa-arrow-up"></i>
+                    </div>
+                {% endif %}
+
+        {% endif %}
+    </div>
 {% endblock %}
