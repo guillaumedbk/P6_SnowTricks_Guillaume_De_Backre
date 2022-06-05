@@ -14,7 +14,7 @@
                 <p class="text-light">Un site communautaire pour apprendre les figures de snowboard.</p>
             </div>
             <div class="fleche-bas">
-                <i class="fa-solid fa-arrow-down fleche-bas"></i>
+                <a href="#tricks-part-homepage"><i class="fa-solid fa-arrow-down fleche-bas"></i></a>
             </div>
         </div>
     </div>
@@ -25,7 +25,7 @@
                 {% for figure in tricks %}
                         <div class="card grid-item d-flex justify-content-between">
                             <img src={{ figure.imageUrl }} class="card-img-top" alt={{ figure.title }}>
-                            <div class="card-body d-flex justify-content-around align-items-center">
+                            <div class="card-body d-flex justify-content-around align-items-center pt-3 pb-0">
                                 <h5 class="card-title">{{ figure.title }}</h5>
                                 <i class="fa-solid fa-pencil"></i>
                                 <i class="fa-solid fa-trash-can"></i>
