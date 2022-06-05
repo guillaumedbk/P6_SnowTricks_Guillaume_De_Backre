@@ -66,11 +66,20 @@ nav ul li, a{
         font-style: italic;
     }
     .fleche-bas{
-        width:20%;
+        font-size: 2rem;
         position: absolute;
         bottom:10%; right:3%;
+        color: black;
     }
     /*END BANNER*/
+
+    /*TRICKS CARD*/
+    .card{
+        margin: 1rem;
+        padding: 1rem;
+        border-radius: 15px;
+    }
+    /*END TRICKS CARD*/
 }
 /*VERSION DESKTOP*/
 @media screen and (min-width: 1024px){
