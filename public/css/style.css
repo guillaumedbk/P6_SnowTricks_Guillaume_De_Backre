@@ -84,6 +84,30 @@ nav ul li, a{
     }
     /*END TRICKS CARD*/
 
+    /*FORMS PAGES*/
+    .container-form{
+        margin-top: 15rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-size: 2rem;
+    }
+    .form{
+        width:100%;
+    }
+    .form-control{
+        height:5rem;
+    }
+    button{
+        width:100%;
+    }
+    .btn{
+        font-size: 2rem;
+        height:5rem;
+    }
+    /*END FORMS PAGES*/
+
     /*FOOTER*/
     #footer{
         display:none !important;
@@ -99,6 +123,7 @@ nav ul li, a{
     body{
         margin:0;
         overflow-x: hidden;
+        height:100vh;
     }
     .my-container{
         width: 100vw;
@@ -237,4 +262,17 @@ nav ul li, a{
         height:3rem;
     }
     /*END FOOTER*/
+
+    /*FORMS PAGES*/
+    .container-form{
+        height:100vh;
+        margin-top:-12rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        transform: scale(1.2);
+    }
+    /*END FORMS PAGES*/
 }
