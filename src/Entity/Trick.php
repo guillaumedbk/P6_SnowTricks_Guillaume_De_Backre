@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TricksRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -30,10 +32,14 @@ class Trick
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private string $imageUrl;
 
+    #[ORM\OneToMany(mappedBy: 'trickId', targetEntity: Chat::class, orphanRemoval: true)]
+    private $chats;
+
     //CONSTRUCTOR
     public function __construct(string $title)
     {
         $this->title = $title;
+        $this->chats = new ArrayCollection();
     }
 
     //GETTERS AND SETTER
@@ -74,6 +80,36 @@ class Trick
     public function setImageUrl(?string $imageUrl): self
     {
         $this->imageUrl = $imageUrl;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Chat>
+     */
+    public function getChats(): Collection
+    {
+        return $this->chats;
+    }
+
+    public function addChat(Chat $chat): self
+    {
+        if (!$this->chats->contains($chat)) {
+            $this->chats[] = $chat;
+            $chat->setTrickId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChat(Chat $chat): self
+    {
+        if ($this->chats->removeElement($chat)) {
+            // set the owning side to null (unless already changed)
+            if ($chat->getTrickId() === $this) {
+                $chat->setTrickId(null);
+            }
+        }
 
         return $this;
     }

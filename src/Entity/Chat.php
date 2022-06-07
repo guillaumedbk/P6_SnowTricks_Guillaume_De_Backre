@@ -16,22 +16,6 @@ class Chat
     #[ORM\Column(type: 'integer')]
     private $id;
 
-        //userId
-    #[ORM\Column(type: 'integer')]
-    #[Assert\Type(
-        type: 'integer',
-        message: 'The value {{ value }} is not a valid {{ type }}.',
-    )]
-    private $userId;
-
-        //tricksId
-    #[ORM\Column(type: 'integer')]
-    #[Assert\Type(
-        type: 'integer',
-        message: 'The value {{ value }} is not a valid {{ type }}.',
-    )]
-    private $tricksId;
-
         //content
     #[ORM\Column(type: 'text')]
     private $content;
@@ -43,6 +27,14 @@ class Chat
      */
     #[Assert\DateTime]
     private $publishAt;
+
+    #[ORM\ManyToOne(targetEntity: Trick::class, inversedBy: 'chats')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $trickId;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'chats')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $userId;
 
     //GETTERS AND SETTERS
     public function getId(): ?int
@@ -94,6 +86,18 @@ class Chat
     public function setPublishAt(\DateTimeInterface $publishAt): self
     {
         $this->publishAt = $publishAt;
+
+        return $this;
+    }
+
+    public function getTrickId(): ?Trick
+    {
+        return $this->trickId;
+    }
+
+    public function setTrickId(?Trick $trickId): self
+    {
+        $this->trickId = $trickId;
 
         return $this;
     }

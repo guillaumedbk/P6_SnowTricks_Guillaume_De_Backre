@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -38,6 +40,9 @@ class User
     #[ORM\Column(type: 'string', length: 255)]
     private string $status;
 
+    #[ORM\OneToMany(mappedBy: 'userId', targetEntity: Chat::class, orphanRemoval: true)]
+    private $chats;
+
     //CONSTRUCTOR
     public function __construct(string $email, string $password, string $firstname, string $name)
     {
@@ -45,6 +50,7 @@ class User
         $this->password = $password;
         $this->firstname = $firstname;
         $this->name = $name;
+        $this->chats = new ArrayCollection();
     }
 
     //GETTERS AND SETTERS
@@ -109,6 +115,36 @@ class User
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Chat>
+     */
+    public function getChats(): Collection
+    {
+        return $this->chats;
+    }
+
+    public function addChat(Chat $chat): self
+    {
+        if (!$this->chats->contains($chat)) {
+            $this->chats[] = $chat;
+            $chat->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChat(Chat $chat): self
+    {
+        if ($this->chats->removeElement($chat)) {
+            // set the owning side to null (unless already changed)
+            if ($chat->getUserId() === $this) {
+                $chat->setUserId(null);
+            }
+        }
 
         return $this;
     }

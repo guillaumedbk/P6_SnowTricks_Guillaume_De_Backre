@@ -6,8 +6,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class TrickDTO
 {
-    public $id;
-
     #[Assert\NotBlank]
     #[Assert\Length(
         min: 2,
