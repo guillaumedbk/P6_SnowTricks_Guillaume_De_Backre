@@ -36,6 +36,12 @@ class Chat
     #[ORM\JoinColumn(nullable: false)]
     private $userId;
 
+    //CONSTRUCTOR
+    public function __construct(string $content)
+    {
+        $this->content = $content;
+    }
+
     //GETTERS AND SETTERS
     public function getId(): ?int
     {

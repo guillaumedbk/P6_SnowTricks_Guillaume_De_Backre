@@ -39,7 +39,6 @@ class Trick
     public function __construct(string $title)
     {
         $this->title = $title;
-        $this->chats = new ArrayCollection();
     }
 
     //GETTERS AND SETTER
