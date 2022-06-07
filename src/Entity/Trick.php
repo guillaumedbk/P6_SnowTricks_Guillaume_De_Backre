@@ -9,34 +9,32 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: TricksRepository::class)]
 #[UniqueEntity('title')]
-class Tricks
+class Trick
 {
     //ATTRIBUTES
         //id
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private ?int $id = null;
 
         //title
     #[ORM\Column(type: 'string', length: 255)]
-    #[Assert\NotBlank]
-    #[Assert\Length(
-        min: 2,
-        max: 255,
-        minMessage: 'The figure title must be at least {{ limit }} characters long',
-        maxMessage: 'Your figure title cannot be longer than {{ limit }} characters',
-    )]
-    private $title;
+    private string $title;
 
         //description
     #[ORM\Column(type: 'text', nullable: true)]
-    private $description;
+    private string $description;
 
         //imageUrl
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Assert\Url]
-    private $imageUrl;
+    private string $imageUrl;
+
+    //CONSTRUCTOR
+    public function __construct(string $title)
+    {
+        $this->title = $title;
+    }
 
     //GETTERS AND SETTER
     public function getId(): ?int
