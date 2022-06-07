@@ -10,9 +10,9 @@
 
     <div class="container container-form">
         <h1 class="text-center text-uppercase text-warning fs-2">Créer votre compte</h1>
-        <p class="text-center mt-3">Vous avez déjà un compte ? <a href="connexion">Connectez-vous</a></p>
+        <p class="text-center mt-3">Vous avez déjà un compte ? <a href="/login">Connectez-vous</a></p>
 
-        <form action="" class="form bg-light m-2 p-4 rounded-3">
+       <!-- <form class="form bg-light m-2 p-4 rounded-3">-->
             {{ form_start(registrationForm) }}
             {{ form_row(registrationForm.firstname) }}
             {{ form_row(registrationForm.name) }}
@@ -24,7 +24,7 @@
 
             <button type="submit" class="btn btn-warning btn-form">Register</button>
             {{ form_end(registrationForm) }}
-        </form>
+       <!-- </form>-->
     </div>
 
 {% endblock %}
