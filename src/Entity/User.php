@@ -16,47 +16,36 @@ class User
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private ?int $id = null;
 
         //firstname
     #[ORM\Column(type: 'string', length: 255)]
-    #[Assert\NotBlank]
-    #[Assert\Length(
-        min: 2,
-        max: 255,
-        minMessage: 'The firstname must be at least {{ limit }} characters long',
-        maxMessage: 'The firstname cannot be longer than {{ limit }} characters',
-    )]
-    private $firstname;
+    private string $firstname;
 
         //name
     #[ORM\Column(type: 'string', length: 255)]
-    #[Assert\NotBlank]
-    #[Assert\Length(
-        min: 2,
-        max: 255,
-        minMessage: 'The name must be at least {{ limit }} characters long',
-        maxMessage: 'The name cannot be longer than {{ limit }} characters',
-    )]
-    private $name;
+    private string $name;
 
         //email
     #[ORM\Column(type: 'string', length: 255, unique: true)]
-    #[Assert\Email(
-        message: 'The email {{ value }} is not a valid email.',
-    )]
-    private $email;
+    private string $email;
 
         //password
     #[ORM\Column(type: 'text')]
-    #[Assert\NotBlank]
-    private $password;
+    private string $password;
 
         //status
     #[ORM\Column(type: 'string', length: 255)]
-    #[Assert\NotBlank]
-    #[Assert\Choice(['admin', 'user'])]
-    private $status;
+    private string $status;
+
+    //CONSTRUCTOR
+    public function __construct(string $email, string $password, string $firstname, string $name)
+    {
+        $this->email = $email;
+        $this->password = $password;
+        $this->firstname = $firstname;
+        $this->name = $name;
+    }
 
     //GETTERS AND SETTERS
     public function getId(): ?int
