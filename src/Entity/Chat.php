@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Repository\ChatRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ChatRepository::class)]
 class Chat
@@ -77,12 +76,5 @@ class Chat
     public function getTrickId(): ?Trick
     {
         return $this->trickId;
-    }
-
-    public function setTrickId(?Trick $trickId): self
-    {
-        $this->trickId = $trickId;
-
-        return $this;
     }
 }

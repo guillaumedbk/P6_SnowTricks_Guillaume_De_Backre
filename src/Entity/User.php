@@ -40,7 +40,10 @@ class User
     private string $status;
 
     #[ORM\OneToMany(mappedBy: 'userId', targetEntity: Chat::class, orphanRemoval: true)]
-    private $chats;
+    /**
+     * @var Collection<int, Chat>
+     */
+    private Collection $chats;
 
     //CONSTRUCTOR
     public function __construct(string $email, string $password, string $firstname, string $name)
@@ -121,9 +124,9 @@ class User
     }
 
     /**
-     * @return Collection<int, Chat>
+     * @return iterable<Chat>
      */
-    public function getChats(): Collection
+    public function getChats(): iterable
     {
         return $this->chats;
     }
