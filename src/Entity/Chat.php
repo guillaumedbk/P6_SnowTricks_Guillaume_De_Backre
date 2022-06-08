@@ -52,31 +52,14 @@ class Chat
         return $this->user;
     }
 
-    public function setUser(User $user): void
-    {
-        $this->user = $user;
-    }
-
     public function getTrick(): Trick
     {
         return $this->trick;
     }
 
-    public function setTrick(Trick $trick): void
-    {
-        $this->trick = $trick;
-    }
-
     public function getContent(): ?string
     {
         return $this->content;
-    }
-
-    public function setContent(string $content): self
-    {
-        $this->content = $content;
-
-        return $this;
     }
 
     public function getPublishAt(): ?\DateTimeInterface
