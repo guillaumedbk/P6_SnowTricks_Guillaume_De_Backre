@@ -35,6 +35,9 @@ class Chat
     //CONSTRUCTOR
     public function __construct(User $user, Trick $trick, \DateTimeInterface $publishAt, string $content)
     {
+        $this->user = $user;
+        $this->trick = $trick;
+        $this->publishAt = $publishAt;
         $this->content = $content;
     }
 
