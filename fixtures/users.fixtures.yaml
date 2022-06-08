@@ -1,0 +1,12 @@
+App\Entity\User:
+  user{1..10}:
+    __construct:
+      - "<username()>"
+      - "<lastName()>"
+      - '<email()>'
+      - '<username()>'
+    firstname: '<username()>'
+    name: '<lastName()>'
+    email: '<email()>'
+    password: '<username()>'
+    status: USER
