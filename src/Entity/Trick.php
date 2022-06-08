@@ -33,7 +33,10 @@ class Trick
     private string $imageUrl;
 
     #[ORM\OneToMany(mappedBy: 'trickId', targetEntity: Chat::class, orphanRemoval: true)]
-    private $chats;
+    /**
+     * @Collection<int, Chat>
+     */
+    private Collection $chats;
 
     //CONSTRUCTOR
     public function __construct(string $title)
