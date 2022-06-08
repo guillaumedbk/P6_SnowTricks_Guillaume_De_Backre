@@ -14,27 +14,23 @@ class Chat
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private int $id;
 
         //content
     #[ORM\Column(type: 'text')]
-    private $content;
+    private string $content;
 
         //date
     #[ORM\Column(type: 'datetime')]
-    /**
-     * @var string A "Y-m-d H:i:s" formatted value
-     */
-    #[Assert\DateTime]
-    private $publishAt;
+    private \DateTime $publishAt;
 
     #[ORM\ManyToOne(targetEntity: Trick::class, inversedBy: 'chats')]
     #[ORM\JoinColumn(nullable: false)]
-    private $trickId;
+    private Trick $trick;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'chats')]
     #[ORM\JoinColumn(nullable: false)]
-    private $userId;
+    private User $user;
 
     //CONSTRUCTOR
     public function __construct(string $content)
@@ -47,29 +43,25 @@ class Chat
     {
         return $this->id;
     }
-
-    public function getUserId(): ?int
+    
+    public function getUser(): User
     {
-        return $this->userId;
+        return $this->user;
     }
 
-    public function setUserId(int $userId): self
+    public function setUser(User $user): void
     {
-        $this->userId = $userId;
-
-        return $this;
+        $this->user = $user;
     }
 
-    public function getTricksId(): ?int
+    public function getTrick(): Trick
     {
-        return $this->tricksId;
+        return $this->trick;
     }
 
-    public function setTricksId(int $tricksId): self
+    public function setTrick(Trick $trick): void
     {
-        $this->tricksId = $tricksId;
-
-        return $this;
+        $this->trick = $trick;
     }
 
     public function getContent(): ?string
