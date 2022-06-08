@@ -89,7 +89,7 @@ class Trick
     /**
      * @return Collection<int, Chat>
      */
-    public function getChats(): Collection
+    public function getChats(): iterable
     {
         return $this->chats;
     }
