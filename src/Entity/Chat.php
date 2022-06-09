@@ -60,4 +60,35 @@ class Chat
     {
         return $this->publishAt;
     }
+
+
+    //Setters pour les fixtures
+    public function setContent(string $content): void
+    {
+        $this->content = $content;
+    }
+
+    /**
+     * @param \DateTime|\DateTimeInterface $publishAt
+     */
+    public function setPublishAt(\DateTime|\DateTimeInterface $publishAt): void
+    {
+        $this->publishAt = $publishAt;
+    }
+
+    /**
+     * @param Trick $trick
+     */
+    public function setTrick(Trick $trick): void
+    {
+        $this->trick = $trick;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user): void
+    {
+        $this->user = $user;
+    }
 }

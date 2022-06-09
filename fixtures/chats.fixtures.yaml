@@ -1,0 +1,11 @@
+App\Entity\Chat:
+  chat{1..10}:
+    __construct :
+      - "<name()>"
+      - <(new \DateTime('2022-06-09'))>
+      - '@figure<current()>'
+      - '@user<current()>'
+    content: "<name()>"
+    publishAt: <(new \DateTime('2022-06-09'))>
+    trick: "@figure<current()>"
+    user: "@user<current()>"
