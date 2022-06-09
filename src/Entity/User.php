@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -46,12 +47,14 @@ class User
     private Collection $chats;
 
     //CONSTRUCTOR
-    public function __construct(string $email, string $password, string $firstname, string $name)
+    public function __construct(string $firstname,string $name, string $email, string $password)
     {
-        $this->email = $email;
-        $this->password = $password;
         $this->firstname = $firstname;
         $this->name = $name;
+        $this->email = $email;
+        $this->password = $password;
+        $this->status = 'USER';
+        $this->chats = new ArrayCollection();
     }
 
     //GETTERS AND SETTERS
@@ -60,7 +63,7 @@ class User
         return $this->id;
     }
 
-    public function getFirstname(): ?string
+    public function getFirstname(): string
     {
         return $this->firstname;
     }
@@ -72,7 +75,7 @@ class User
         return $this;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -84,7 +87,7 @@ class User
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -99,7 +102,7 @@ class User
     /**
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword(): ?string
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -111,7 +114,7 @@ class User
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): string
     {
         return $this->status;
     }

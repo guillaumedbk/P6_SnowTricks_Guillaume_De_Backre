@@ -3,8 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\TricksRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\Pure;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: TricksRepository::class)]
@@ -24,12 +26,13 @@ class Trick
 
         //description
     #[ORM\Column(type: 'text', nullable: true)]
-    private string $description;
+    private ?string $description = null;
 
         //imageUrl
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private string $imageUrl;
+    private ?string $imageUrl = null;
 
+        //chats liaison
     #[ORM\OneToMany(mappedBy: 'trickId', targetEntity: Chat::class, orphanRemoval: true)]
     /**
      * @Collection<int, Chat>
@@ -40,6 +43,7 @@ class Trick
     public function __construct(string $title)
     {
         $this->title = $title;
+        $this->chats = new ArrayCollection();
     }
 
     //GETTERS AND SETTER
@@ -48,7 +52,7 @@ class Trick
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }

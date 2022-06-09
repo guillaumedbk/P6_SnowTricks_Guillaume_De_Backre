@@ -13,7 +13,7 @@ class Chat
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private int $id;
+    private ?int $id = null;
 
         //content
     #[ORM\Column(type: 'text')]
@@ -32,12 +32,12 @@ class Chat
     private User $user;
 
     //CONSTRUCTOR
-    public function __construct(User $user, Trick $trick, \DateTimeInterface $publishAt, string $content)
+    public function __construct(string $content, \DateTimeInterface $publishAt, Trick $trick, User $user)
     {
-        $this->user = $user;
-        $this->trick = $trick;
-        $this->publishAt = $publishAt;
         $this->content = $content;
+        $this->publishAt = $publishAt;
+        $this->trick = $trick;
+        $this->user = $user;
     }
 
     //GETTERS AND SETTERS
@@ -51,30 +51,13 @@ class Chat
         return $this->user;
     }
 
-    public function getTrick(): Trick
-    {
-        return $this->trick;
-    }
-
-    public function getContent(): ?string
+    public function getContent(): string
     {
         return $this->content;
     }
 
-    public function getPublishAt(): ?\DateTimeInterface
+    public function getPublishAt(): \DateTimeInterface
     {
         return $this->publishAt;
-    }
-
-    public function setPublishAt(\DateTimeInterface $publishAt): self
-    {
-        $this->publishAt = $publishAt;
-
-        return $this;
-    }
-
-    public function getTrickId(): ?Trick
-    {
-        return $this->trickId;
     }
 }
