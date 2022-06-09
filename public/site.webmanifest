@@ -1,0 +1,13 @@
+{
+  "name": "Snow-tricks",
+  "lang": "fr",
+  "start_url": "/",
+  "theme_color": "#FBBF1A",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/public/favicon.ico",
+      "sizes": "512x512"
+    }
+  ]
+}

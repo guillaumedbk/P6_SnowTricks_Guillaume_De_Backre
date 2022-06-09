@@ -18,5 +18,4 @@ class TrickDTO
 
     #[Assert\Url]
     public $imageUrl;
-
 }
