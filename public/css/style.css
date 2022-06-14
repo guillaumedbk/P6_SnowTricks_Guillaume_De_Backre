@@ -1,0 +1,240 @@
+h1{
+    font-size: 5rem;
+}
+
+nav ul li, a{
+    font-size: 1.1em;
+}
+/*VERSION MOBILE*/
+@media screen and (max-width: 1023px)
+{
+    .navigation-desktop{
+        display:none !important;
+    }
+    /*GRID STRUCTURE HEADER & BANNER HOMEPAGE*/
+    body{
+        margin:0;
+    }
+    .my-container{
+        width: 100vw;
+        height:100vh;
+
+        display:grid;
+
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 75px;
+    }
+    .content-large{
+        grid-row-start: 0;
+        grid-row-end: 2;
+        grid-column-start: 1;
+        grid-column-end: 4;
+    }
+    .grid-container{
+        margin-bottom: 5em;
+    }
+    /*END GRID STRUCTURE*/
+
+    /*NAVIGATION*/
+    .navigation-mobile{
+        background: #f1f1f1;
+        position: fixed;
+        bottom:0;
+        display: flex;
+        height: 75px;
+        width: 100%;
+        justify-content: space-around;
+        z-index:999;
+    }
+    .bloc-icon{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .bloc-icon img{
+        width: 30px;
+    }
+    /*END NAVIGATION*/
+
+    /*BANNER*/
+    .banner-image{
+        width : 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .titre-banner{
+        position: absolute;
+        top: 55%; left:5%;
+        font-size: 1.9em;
+        font-style: italic;
+    }
+    .fleche-bas{
+        font-size: 2rem;
+        position: absolute;
+        bottom:10%; right:3%;
+        color: black;
+    }
+    /*END BANNER*/
+
+    /*TRICKS CARD*/
+    .card{
+        margin: 1rem;
+        padding: 1rem;
+        border-radius: 15px;
+    }
+    /*END TRICKS CARD*/
+
+    /*FOOTER*/
+    #footer{
+        display:none !important;
+    }
+    /*END FOOTER*/
+}
+/*VERSION DESKTOP*/
+@media screen and (min-width: 1024px){
+    .navigation-mobile{
+        display:none;
+    }
+    /*GRID STRUCTURE*/
+    body{
+        margin:0;
+        overflow-x: hidden;
+    }
+    .my-container{
+        width: 100vw;
+        height:100vh;
+
+        display:grid;
+
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 75px 1fr 1fr;
+    }
+    .header{
+        grid-column-start: 1;
+        grid-column-end: 4;
+    }
+    .content-large{
+        grid-row-start: 2;
+        grid-row-end: span 2;
+        grid-column-start: 1;
+        grid-column-end: 4;
+    }
+    /*END GRID STRUCTURE*/
+
+    /*NAVIGATION*/
+    .liens-navigation{
+        list-style-type: none;
+        display: flex;
+    }
+    .container{
+        display: flex;
+        justify-content: space-between;
+    }
+    .liens{
+        text-decoration: none;
+        color:black;
+    }
+    /*END NAVIGATION*/
+
+    /*BANNER*/
+    .banner-image{
+        width : 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .titre-banner{
+        position: absolute;
+        top: 55%; left:5%;
+        font-size: 1.5em;
+        font-style: italic;
+    }
+    .fleche-bas{
+        font-size: 2.2em;
+        position: absolute;
+        bottom:5%; right:5%;
+        color: black;
+    }
+    /*END BANNER*/
+
+    /*ALL TRICKS*/
+
+    /*GRID STRUCTURE FOR ALL TRICKS*/
+    .grid-container {
+        display: grid;
+
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+
+        padding: 10px;
+        margin:2em;
+        margin-top: 3em;
+
+        gap: 30px;
+    }
+    /*END GRID STRUCTURE*/
+
+    /*LOAD MORE CONFIGURATION*/
+    .grid-container .card{
+        display: none;
+    }
+        /*DISPLAY TEN ELEMENT*/
+    .grid-container .card:nth-child(1),
+    .grid-container .card:nth-child(2),
+    .grid-container .card:nth-child(3),
+    .grid-container .card:nth-child(4),
+    .grid-container .card:nth-child(5),
+    .grid-container .card:nth-child(6),
+    .grid-container .card:nth-child(7),
+    .grid-container .card:nth-child(8),
+    .grid-container .card:nth-child(9),
+    .grid-container .card:nth-child(10)
+    {
+        display: grid;
+    }
+    /*END LOAD MORE CONFIG*/
+
+    /*CARDS TRICKS*/
+    .grid-item {
+        background-color: rgba(255, 255, 255, 0.8);
+        font-size: 1em;
+        text-transform: capitalize;
+    }
+    .card-img-top{
+        min-height: 70%;
+        object-fit: cover;
+    }
+    .card{
+        height : 100%;
+
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-transition: .3s ease-in-out;
+        transition: .3s ease-in-out;
+    }
+    .card:hover{
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+    .card-body{
+        min-height: 30%;
+    }
+    /*END CARDS*/
+
+    /*BOUTONS*/
+    #loading{
+        grid-column: 3 / 4;
+        grid-row: 4 / 5;
+        justify-self: center;
+    }
+    .fleche-haut{
+        grid-column: 5 / 6;
+        grid-row: 4 / 5;
+        font-size: 4.5em;
+        justify-self: end;
+    }
+
+    /*FOOTER*/
+    footer{
+        height:3rem;
+    }
+    /*END FOOTER*/
+}
