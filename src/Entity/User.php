@@ -13,6 +13,10 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[UniqueEntity('email')]
 class User
 {
+    //Status const
+    public const ADMIN = 'ADMIN';
+    public const USER = 'USER';
+
     //ATTRIBUTES
         //id
     #[ORM\Id]
@@ -53,7 +57,7 @@ class User
         $this->name = $name;
         $this->email = $email;
         $this->password = $password;
-        $this->status = 'USER';
+        $this->status = User::USER;
         $this->chats = new ArrayCollection();
     }
 

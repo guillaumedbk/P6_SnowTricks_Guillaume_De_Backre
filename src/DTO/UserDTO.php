@@ -30,8 +30,4 @@ class UserDTO
 
     #[Assert\NotBlank]
     public $password;
-
-    #[Assert\NotBlank]
-    #[Assert\Choice(['admin', 'user'])]
-    public $status;
 }
