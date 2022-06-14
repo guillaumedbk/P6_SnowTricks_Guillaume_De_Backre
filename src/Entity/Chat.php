@@ -35,7 +35,7 @@ class Chat
     public function __construct(string $content, Trick $trick, User $user)
     {
         $this->content = $content;
-        $this->publishAt = new \DateTime('now');
+        $this->publishAt = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
         $this->trick = $trick;
         $this->user = $user;
     }
