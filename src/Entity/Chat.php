@@ -32,10 +32,10 @@ class Chat
     private User $user;
 
     //CONSTRUCTOR
-    public function __construct(string $content, \DateTimeInterface $publishAt, Trick $trick, User $user)
+    public function __construct(string $content, Trick $trick, User $user)
     {
         $this->content = $content;
-        $this->publishAt = $publishAt;
+        $this->publishAt = new \DateTime('now');
         $this->trick = $trick;
         $this->user = $user;
     }
