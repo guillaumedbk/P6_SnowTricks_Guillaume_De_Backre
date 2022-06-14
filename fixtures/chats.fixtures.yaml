@@ -1,0 +1,9 @@
+App\Entity\Chat:
+  chat{1..10}:
+    __construct :
+      - "<name()>"
+      - '@figure<current()>'
+      - '@user<current()>'
+    content: "<name()>"
+    trick: "@figure<current()>"
+    user: "@user<current()>"
