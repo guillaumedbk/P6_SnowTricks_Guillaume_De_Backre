@@ -60,4 +60,26 @@ class Chat
     {
         return $this->publishAt;
     }
+
+    //Setters
+    public function setContent(string $content): void
+    {
+        $this->content = $content;
+    }
+    /**
+     * @param Trick $trick
+     */
+    public function setTrick(Trick $trick): void
+    {
+        $this->trick = $trick;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user): void
+    {
+        $this->user = $user;
+    }
+
 }
