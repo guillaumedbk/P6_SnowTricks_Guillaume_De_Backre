@@ -12,12 +12,12 @@
         <h1 class="text-center text-uppercase text-warning fs-2">Créer votre compte</h1>
         <p class="text-center mt-3">Vous avez déjà un compte ? <a href="/login">Connectez-vous</a></p>
 
-        <form class="form bg-light m-2 p-4 rounded-3">
+        <form class="form bg-light m-2 p-4 rounded-3" method="post">
             {{ form_start(registrationForm) }}
             {{ form_row(registrationForm.firstname) }}
             {{ form_row(registrationForm.name) }}
             {{ form_row(registrationForm.email) }}
-            {{ form_row(registrationForm.plainPassword, {
+            {{ form_row(registrationForm.password, {
                 label: 'Password'
             }) }}
             {{ form_row(registrationForm.agreeTerms) }}

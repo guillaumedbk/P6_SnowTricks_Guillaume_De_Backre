@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Auth;
+use App\DTO\UserDTO;
+use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Repository\AuthRepository;
 use App\Security\EmailVerifier;
@@ -31,27 +32,29 @@ class RegistrationController extends AbstractController
     #[Route(path: '/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
-        $user = new Auth();
+        $user = new UserDTO();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
-            $user->setPassword(
-            $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
+            $userDataDTO = $form->getData();
+            $newUser = new User($userDataDTO->firstname, $userDataDTO->name, $userDataDTO->email, $userDataDTO->password);
+            // encode the plain password
+            $newUser->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $newUser,
+                    $form->get('password')->getData()
                 )
             );
-
-            $entityManager->persist($user);
+            $entityManager->persist($newUser);
             $entityManager->flush();
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $newUser,
                 (new TemplatedEmail())
                     ->from(new Address('debackre.guillaume@gmail.com', 'Guillaume - Snowtricks'))
-                    ->to($user->getEmail())
+                    ->to($newUser->getEmail())
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
