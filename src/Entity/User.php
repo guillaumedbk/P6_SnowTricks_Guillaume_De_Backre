@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity('email')]
-class User
+class User implements PasswordAuthenticatedUserInterface
 {
     //Status const
     public const ADMIN = 'ADMIN';
