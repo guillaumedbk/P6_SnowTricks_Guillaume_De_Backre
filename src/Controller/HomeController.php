@@ -9,15 +9,9 @@ use Twig\Environment;
 
 class HomeController extends AbstractController
 {
-    /**
-     * @var TricksRepository
-     */
-    private $tricksRepository;
-
-    public function index(TricksRepository $tricksRepository): Response
+    public function __invoke(TricksRepository $tricksRepository): Response
     {
-        $this->tricksRepository = $tricksRepository;
-        $tricks = $this->tricksRepository->findAll();
+        $tricks = $tricksRepository->findAll();
         return $this->render('home/index.html.twig',[
             'tricks' => $tricks
         ]);
