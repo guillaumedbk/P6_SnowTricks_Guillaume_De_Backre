@@ -23,13 +23,13 @@ class EmailVerifier
         $this->entityManager = $manager;
     }
 
-    public function sendEmailConfirmation(string $verifyEmailRouteName, UserInterface $user, TemplatedEmail $email): void
+    public function sendEmailConfirmation(string $verifyEmailRouteName, $newUser, TemplatedEmail $email): void
     {
         $signatureComponents = $this->verifyEmailHelper->generateSignature(
             $verifyEmailRouteName,
-            $user->getId(),
-            $user->getEmail(),
-            ['id' => $user->getId()]
+            $newUser->getId(),
+            $newUser->getEmail(),
+            ['id' => $newUser->getId()]
         );
 
         $context = $email->getContext();
@@ -45,13 +45,13 @@ class EmailVerifier
     /**
      * @throws VerifyEmailExceptionInterface
      */
-    public function handleEmailConfirmation(Request $request, UserInterface $user): void
+    public function handleEmailConfirmation(Request $request, $newUser): void
     {
-        $this->verifyEmailHelper->validateEmailConfirmation($request->getUri(), $user->getId(), $user->getEmail());
+        $this->verifyEmailHelper->validateEmailConfirmation($request->getUri(), $newUser->getId(), $newUser->getEmail());
 
-        $user->setIsVerified(true);
+        $newUser->setIsVerified(true);
 
-        $this->entityManager->persist($user);
+        $this->entityManager->persist($newUser);
         $this->entityManager->flush();
     }
 }
