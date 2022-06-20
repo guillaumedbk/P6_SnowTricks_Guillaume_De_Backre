@@ -106,13 +106,62 @@ nav ul li, a{
     /*END FOOTER*/
 
     /*TRICK PAGE*/
-    .container-trick{
+    .my-trick-container{
         width: 100vw;
         height:100vh;
+
         display:grid;
 
         grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-template-rows: 3fr 1fr 3fr 1fr 3fr 75px 75px;
+        grid-template-rows: 1fr 95px 1fr 75px 75px 1fr 75px 75px;
+    }
+    .image-content{
+        grid-column-start: 1;
+        grid-column-end: span 4;
+        grid-row-start: 1;
+        grid-row-end: span 1;
+    }
+    .see-media{
+        grid-column-start: 1;
+        grid-column-end: span 4;
+        grid-row-start: 2;
+        grid-row-end: 2;
+        align-self: center;
+        justify-self: center;
+    }
+    .description-content{
+        grid-column-start: 1;
+        grid-column-end: span 4;
+        grid-row-start: 3;
+        grid-row-end: 3;
+        align-self: center;
+        justify-self: center;
+        width: 37rem;
+    }
+    .info-complementaire{
+        grid-column-start: 1;
+        grid-column-end: span 4;
+        grid-row-start: 4;
+        grid-row-end: 4;
+        margin-left:12em;
+        margin-right:12em;
+        margin-top: 3em;
+        display: flex;
+        justify-content: space-between;
+    }
+    .dropdown-divider{
+        grid-column-start: 2;
+        grid-column-end: span 2;
+        align-self: center;
+    }
+    .espace-discussion{
+        grid-column-start: 1;
+        grid-column-end: span 4;
+        grid-row-start: 6;
+        grid-row-end: 6;
+        align-self: center;
+        justify-self: center;
+        width: 37rem;
     }
     /*END TRICK PAGE*/
 }

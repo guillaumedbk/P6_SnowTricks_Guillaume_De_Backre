@@ -1,10 +1,40 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container-trick">
-
-    </div>
     {% if trick %}
-      {{ trick.title }}
+        <div class="my-trick-container">
+            <div class="image-content">
+                <img src='{{ trick.imageUrl }}' alt="{{ trick.title }}">
+            </div>
+
+            <div class="see-media">
+                <button type="button" class="btn btn-lg btn-outline-warning">See medias</button>
+            </div>
+
+            <div class="description-content">
+                <h2>Description de la figure</h2>
+                {{ trick.description }}
+            </div>
+            <div class="info-complementaire">
+                <div class="info-une">
+                    <p><em>Publié le:</em></p>
+                </div>
+                <div class="info-deux">
+                    <p><em>Dernière modification:</em></p>
+                </div>
+                <div class="info-trois">
+                    <p><em>Niveau:</em></p>
+                </div>
+                <div class="info-trois">
+                    <p><em>Groupe:</em></p>
+                </div>
+            </div>
+            <hr class="dropdown-divider">
+
+            <div class="espace-discussion">
+                <h2>Espace de discussion:</h2>
+                Apparition de tous les chats ici
+            </div>
+        </div>
     {% endif %}
 {% endblock %}
