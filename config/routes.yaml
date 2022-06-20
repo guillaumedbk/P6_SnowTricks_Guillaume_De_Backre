@@ -2,6 +2,10 @@ home:
     path: /
     controller: App\Controller\HomeController
 
+trick:
+    path: /trick/{id}
+    controller: App\Controller\TrickController
+
 controllers:
     resource: ../src/Controller/
     type: attribute
