@@ -6,9 +6,15 @@
     <div class="bloc-icon">
         <img src="{{ asset('images/bookmark.png') }}" alt="element">
     </div>
-    <div class="bloc-icon">
-        <img src="{{ asset('images/user.png') }}" alt="connexion">
-    </div>
+    {% if user %}
+        <div class="bloc-icon">
+            <a href="/logout"><img src="{{ asset('images/logout.png') }}" alt="connexion"></a>
+        </div>
+    {% else %}
+        <div class="bloc-icon">
+            <a href="/login"><img src="{{ asset('images/user.png') }}" alt="connexion"></a>
+        </div>
+    {% endif %}
 </nav>
 
 <!--NAV DESKTOP-->
