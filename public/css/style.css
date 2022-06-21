@@ -163,6 +163,21 @@ nav ul li, a{
         justify-self: center;
         width: 37rem;
     }
+    .image-bubble{
+        background-color: dimgrey;
+        border-radius: 15px 0px 0px 15px;
+        border-right: solid grey;
+
+        diplay: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .chat-content{
+        background-color: lightgrey;
+        border-radius: 0px 15px 15px 0px;
+        padding: 10px;
+        height:3rem;
+    }
     /*END TRICK PAGE*/
 }
 /*VERSION DESKTOP*/
