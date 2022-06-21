@@ -51,11 +51,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private Collection $chats;
 
-    #[ORM\Column(type: 'boolean', nullable: true)]
-    private bool $isVerified;
+    #[ORM\Column(type: 'boolean', options: ['default' => 0] )]
+    private bool $isVerified = false;
 
-    private $roles = [User::USER, User::ADMIN];
-
+    #[ORM\Column(type: 'json')]
+    private $roles = [User::USER];
 
     //CONSTRUCTOR
     public function __construct(string $firstname,string $name, string $email, string $password)

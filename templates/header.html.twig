@@ -6,7 +6,7 @@
     <div class="bloc-icon">
         <img src="{{ asset('images/bookmark.png') }}" alt="element">
     </div>
-    {% if user %}
+    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
         <div class="bloc-icon">
             <a href="/logout"><img src="{{ asset('images/logout.png') }}" alt="connexion"></a>
         </div>
@@ -28,7 +28,7 @@
             <li>|</li>
             <li class="px-3"><a class="liens" href="/register">Sign-Up</a></li>
             <li>|</li>
-            {% if user %}
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <div class="btn-group">
                     <button type="button" class="btn dropdown-toggle p-0 mx-2 text-success" data-bs-toggle="dropdown" aria-expanded="false">
                         CONNECTÉ
