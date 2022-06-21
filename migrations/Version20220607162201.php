@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220607162202 extends AbstractMigration
+final class Version20220607162201 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -29,7 +29,6 @@ final class Version20220607162202 extends AbstractMigration
         $this->addSql('ALTER TABLE chat ADD CONSTRAINT FK_659DF2AAA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('CREATE INDEX IDX_659DF2AAB281BE2E ON chat (trick_id)');
         $this->addSql('CREATE INDEX IDX_659DF2AAA76ED395 ON chat (user_id)');
-        $this->addSql('ALTER TABLE user ADD is_verified TINYINT(1) DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
@@ -42,8 +41,7 @@ final class Version20220607162202 extends AbstractMigration
         $this->addSql('ALTER TABLE chat ADD CONSTRAINT FK_659DF2AAB46B9EE8 FOREIGN KEY (trick_id_id) REFERENCES trick (id) ON UPDATE NO ACTION ON DELETE NO ACTION');
         $this->addSql('CREATE INDEX IDX_659DF2AA9D86650F ON chat (user_id_id)');
         $this->addSql('CREATE INDEX IDX_659DF2AAB46B9EE8 ON chat (trick_id_id)');
-        $this->addSql('ALTER TABLE user DROP is_verified');
-        $this->addSql('DROP INDEX UNIQ_8D93D649E7927C74 ON user');
+
 
         $this->addSql('DROP TABLE chat');
         $this->addSql('DROP TABLE trick');
