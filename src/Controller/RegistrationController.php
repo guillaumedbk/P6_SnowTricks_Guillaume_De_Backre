@@ -30,7 +30,7 @@ class RegistrationController extends AbstractController
     }
 
     #[Route(path: '/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new UserDTO();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -55,15 +55,9 @@ class RegistrationController extends AbstractController
                 (new TemplatedEmail())
                     ->from(new Address('debackre.guillaume@gmail.com', 'Guillaume - Snowtricks'))
                     ->to($newUser->getEmail())
-                    ->subject('Please Confirm your Email')
+                    ->subject('Veuillez confirmer votre adresse mail')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
-            );
-            // do anything else you need here, like send an email
-
-            return $userAuthenticator->authenticateUser(
-                $newUser,
-                $authenticator,
-                $request
+                    ->textTemplate('registration/confirmation_email.text.twig')
             );
         }
 
@@ -73,7 +67,7 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/verify/email', name: 'app_verify_email')]
-    public function verifyUserEmail(Request $request, TranslatorInterface $translator, UserRepository $userRepository): Response
+    public function verifyUserEmail(Request $request, TranslatorInterface $translator, UserRepository $userRepository, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator)//: Response
     {
         $id = $request->get('id');
 
@@ -97,6 +91,12 @@ class RegistrationController extends AbstractController
         }
 
         $this->addFlash('success', 'Your email address has been verified.');
+
+        return $userAuthenticator->authenticateUser(
+            $user,
+            $authenticator,
+            $request
+        );
 
         return $this->redirectToRoute('home');
     }

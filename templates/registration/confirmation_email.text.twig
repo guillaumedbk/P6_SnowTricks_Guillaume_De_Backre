@@ -1,0 +1,10 @@
+Bonjour, merci de confirmer votre adresse mail !
+
+Merci de confirmer votre adresse mail en cliquant sur le lien suivant:
+
+{{ signedUrl | raw }}
+
+
+Ce lien expire dans
+{{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}
+Salutations !
