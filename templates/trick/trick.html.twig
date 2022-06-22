@@ -4,7 +4,7 @@
     {% if trick %}
         <div class="my-trick-container">
             <div class="image-content">
-                <img src='{{ trick.imageUrl }}' alt="{{ trick.title }}">
+                <img src='{{ trick.imageUrl }}' alt="{{ trick.title }}" class="object-fit-cover">
             </div>
 
             <div class="see-media">
@@ -31,30 +31,30 @@
             </div>
             <hr class="dropdown-divider">
             {% if chats %}
-            <div class="espace-discussion">
-                <h2>Espace de discussion:</h2>
+                <div class="espace-discussion">
+                    <h2>Espace de discussion:</h2>
 
-                <div class="discussion-bubble  align-items-center flex-wrap">
-                    <ul class="w-100 d-flex ">
+
+                    <ul class="w-100 d-flex list-unstyled flex-wrap">
                         {% for chat in chats %}
                         <li>
-                            <div class="image-bubble m-0 d-flex align-items-center">
-                                {% for user in users %}
-                                    {% if user.id is same as id %}
-                                        <p class="m-0 text-uppercase">{{ user.firstname|slice(0, 1) }}.{{ user.name|slice(0, 1) }}</p>
-                                    {% endif %}
+                            <div class="discussion-bubble">
+                                <div class="image-bubble m-0 d-flex align-items-center">
+                                    {% for user in users %}
+                                        {% if user.id is same as id %}
+                                            <p class="m-0 text-uppercase">{{ user.firstname|slice(0, 1) }}.{{ user.name|slice(0, 1) }}</p>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+
+                                <div class="chat-content">
+                                    <p class="m-0">{{ chat.content }}</p>
+                                </div>
                                 {% endfor %}
                             </div>
-
-                            <div class="chat-content">
-                                <p class="m-0">{{ chat.content }}</p>
-                            </div>
-                        {% endfor %}
                         </li>
                     </ul>
-
                 </div>
-            </div>
             {% endif %}
         </div>
     {% endif %}
