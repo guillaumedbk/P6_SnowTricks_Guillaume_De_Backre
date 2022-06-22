@@ -32,15 +32,16 @@ class RegistrationController extends AbstractController
     #[Route(path: '/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
+        //RETRIEVE DATA IN THE DTO
         $user = new UserDTO();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
             $userDataDTO = $form->getData();
+            //NEW USER
             $newUser = new User($userDataDTO->firstname, $userDataDTO->name, $userDataDTO->email, $userDataDTO->password);
-            // encode the plain password
+            //SET HASHED PASSWORD
             $newUser->setPassword(
                 $userPasswordHasher->hashPassword(
                     $newUser,
@@ -50,7 +51,7 @@ class RegistrationController extends AbstractController
             $entityManager->persist($newUser);
             $entityManager->flush();
 
-            // generate a signed url and email it to the user
+            //SEND URL TO THE USER TO CONFIRM EMAIL
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $newUser,
                 (new TemplatedEmail())
                     ->from(new Address('debackre.guillaume@gmail.com', 'Guillaume - Snowtricks'))
@@ -81,7 +82,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_register');
         }
 
-        // validate email confirmation link, sets User::isVerified=true and persists
+        //VALIDATE EMAIL CONFIRMATION LINK, , sets User::isVerified=true and persists
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $user);
         } catch (VerifyEmailExceptionInterface $exception) {
