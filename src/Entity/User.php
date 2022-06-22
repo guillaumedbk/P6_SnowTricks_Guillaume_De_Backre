@@ -167,12 +167,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isIsVerified(): ?bool
+    public function isIsVerified(): bool
     {
         return $this->isVerified;
     }
 
-    public function setIsVerified(?bool $isVerified): self
+    public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
 
@@ -181,10 +181,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        return $this->roles;
     }
 
     public function eraseCredentials()
@@ -194,7 +191,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getUserIdentifier(): string
     {
-        return(string) $this->email;
+        return $this->email;
     }
 
 }
