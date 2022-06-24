@@ -13,9 +13,9 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\ResetPasswordType;
 
-class ResetPasswordController extends AbstractController
+class ForgottenPasswordController extends AbstractController
 {
-    #[Route('/update/password', name: 'app_update_password')]
+    #[Route('/forgotten/password', name: 'app_update_password')]
     public function resetPassword(Request $request, UserRepository $userRepository, MailerInterface $mailer): Response
     {
         //RETRIEVE DATA IN THE DTO
@@ -31,7 +31,7 @@ class ResetPasswordController extends AbstractController
                 ->from(new Address('debackre.guillaume@gmail.com', 'Guillaume - Snowtricks'))
                 ->to($EmailDataDTO->email)
                 ->subject('Réinitialisation du mot de passe')
-                ->htmlTemplate('security/reset_password_email.html.twig');
+                ->htmlTemplate('security/forgotten_password_email.html.twig');
 
             // On envoie l'e-mail
             $mailer->send($message);
@@ -39,7 +39,7 @@ class ResetPasswordController extends AbstractController
 
         }
 
-        return $this->render('security/reset_password.html.twig', [
+        return $this->render('security/forgotten_password.html.twig', [
             'ResetPasswordForm' => $form->createView()
         ]);
     }
