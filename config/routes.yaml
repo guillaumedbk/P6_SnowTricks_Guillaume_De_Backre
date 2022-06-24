@@ -2,3 +2,6 @@ home:
     path: /
     controller: App\Controller\HomeController
 
+controllers:
+    resource: ../src/Controller/
+    type: attribute

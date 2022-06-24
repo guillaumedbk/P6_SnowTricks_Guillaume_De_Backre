@@ -592,6 +592,9 @@
     "symfony/yaml": {
         "version": "v6.1.0"
     },
+    "symfonycasts/verify-email-bundle": {
+        "version": "v1.10.0"
+    },
     "theofidry/alice-data-fixtures": {
         "version": "1.5",
         "recipe": {

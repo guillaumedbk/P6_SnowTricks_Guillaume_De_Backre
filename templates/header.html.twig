@@ -6,9 +6,15 @@
     <div class="bloc-icon">
         <img src="{{ asset('images/bookmark.png') }}" alt="element">
     </div>
-    <div class="bloc-icon">
-        <img src="{{ asset('images/user.png') }}" alt="connexion">
-    </div>
+    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+        <div class="bloc-icon">
+            <a href="/logout"><img src="{{ asset('images/logout.png') }}" alt="connexion"></a>
+        </div>
+    {% else %}
+        <div class="bloc-icon">
+            <a href="/login"><img src="{{ asset('images/user.png') }}" alt="connexion"></a>
+        </div>
+    {% endif %}
 </nav>
 
 <!--NAV DESKTOP-->
@@ -18,9 +24,23 @@
         <ul class="liens-navigation mb-0">
             <li class="px-3"><a class="liens" href="#tricks-part-homepage">Tricks</a></li>
             <li>|</li>
-            <li class="px-3"><a class="liens" href="">Sign-In</a></li>
+            <li class="px-3"><a class="liens" href="/login">Sign-In</a></li>
             <li>|</li>
-            <li class="px-3"><a class="liens" href="">Sign-Up</a></li>
+            <li class="px-3"><a class="liens" href="/register">Sign-Up</a></li>
+            <li>|</li>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <div class="btn-group">
+                    <button type="button" class="btn dropdown-toggle p-0 mx-2 text-success" data-bs-toggle="dropdown" aria-expanded="false">
+                        CONNECTÉ
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a href="/logout" class="dropdown-item" type="button">Déconnexion</a></li>
+                        <li><button class="dropdown-item" type="button">Profil</button></li>
+                    </ul>
+                </div>
+            {% else %}
+                <li class="nav-item mx-0 "><a class="nav-link p-0 px-0 px-lg-3 rounded text-white" href="/login">Connexion</a></li>
+            {% endif %}
         </ul>
 
 </nav>

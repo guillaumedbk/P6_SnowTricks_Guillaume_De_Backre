@@ -8,10 +8,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity('email')]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     //Status const
     public const ADMIN = 'ADMIN';
@@ -49,6 +50,12 @@ class User
      * @var Collection<int, Chat>
      */
     private Collection $chats;
+
+    #[ORM\Column(type: 'boolean', options: ['default' => 0] )]
+    private bool $isVerified = false;
+
+    #[ORM\Column(type: 'json')]
+    private $roles = [User::USER];
 
     //CONSTRUCTOR
     public function __construct(string $firstname,string $name, string $email, string $password)
@@ -159,4 +166,32 @@ class User
 
         return $this;
     }
+
+    public function isIsVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getRoles(): array
+    {
+        return $this->roles;
+    }
+
+    public function eraseCredentials()
+    {
+
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
+    }
+
 }

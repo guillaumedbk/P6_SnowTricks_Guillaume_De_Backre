@@ -42,6 +42,7 @@ final class Version20220607162201 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_659DF2AA9D86650F ON chat (user_id_id)');
         $this->addSql('CREATE INDEX IDX_659DF2AAB46B9EE8 ON chat (trick_id_id)');
 
+
         $this->addSql('DROP TABLE chat');
         $this->addSql('DROP TABLE trick');
         $this->addSql('DROP TABLE user');
