@@ -48,6 +48,8 @@ class UpdatePasswordController extends AbstractController
             //SEND EMAIL
             $mailer->send($message);
 
+            return $this->redirectToRoute('home');
+
         }
 
         return $this->render('security/update_password.html.twig', [
