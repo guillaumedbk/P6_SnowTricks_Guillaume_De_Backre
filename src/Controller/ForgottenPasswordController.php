@@ -16,6 +16,8 @@ use App\Form\ResetPasswordType;
 
 class ForgottenPasswordController extends AbstractController
 {
+    private $alert;
+
     #[Route('/forgotten/password', name: 'app_forgotten_password')]
     public function resetPassword(Request $request, UserRepository $userRepository, MailerInterface $mailer): Response
     {
@@ -28,6 +30,10 @@ class ForgottenPasswordController extends AbstractController
             $EmailDataDTO = $form->getData();
 
             $user = $userRepository->findOneBy(array('email' => $EmailDataDTO->email));
+
+            if (!$user){
+                $this->alert = 'Identifiant inconnu, veuillez vous créer un compte';
+            }
             $session = new Session();
             $session->set('user', $user);
 
@@ -43,7 +49,8 @@ class ForgottenPasswordController extends AbstractController
         }
 
         return $this->render('security/forgotten_password.html.twig', [
-            'ResetPasswordForm' => $form->createView()
+            'ResetPasswordForm' => $form->createView(),
+            'alert' => $this->alert
         ]);
     }
 }
