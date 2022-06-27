@@ -39,11 +39,18 @@ class Trick
      */
     private Collection $chats;
 
+    #[ORM\OneToMany(mappedBy: 'trick_id', targetEntity: Video::class, orphanRemoval: true)]
+    /**
+     * @Collection<int, Video>
+     */
+    private Collection $videos;
+
     //CONSTRUCTOR
     public function __construct(string $title)
     {
         $this->title = $title;
         $this->chats = new ArrayCollection();
+        $this->videos = new ArrayCollection();
     }
 
     //GETTERS AND SETTER
@@ -112,6 +119,36 @@ class Trick
             // set the owning side to null (unless already changed)
             if ($chat->getTrickId() === $this) {
                 $chat->setTrickId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return iterable<Video>
+     */
+    public function getVideos(): iterable
+    {
+        return $this->videos;
+    }
+
+    public function addVideo(Video $video): self
+    {
+        if (!$this->videos->contains($video)) {
+            $this->videos[] = $video;
+            $video->setTrickId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVideo(Video $video): self
+    {
+        if ($this->videos->removeElement($video)) {
+            // set the owning side to null (unless already changed)
+            if ($video->getTrickId() === $this) {
+                $video->setTrickId(null);
             }
         }
 
