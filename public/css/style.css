@@ -407,5 +407,21 @@ nav ul li, a{
     .espace-discussion{
         width:90%;
     }
+    .discussion-bubble{
+        width: fit-content;
+        margin:1rem;
+        display: flex;
+        border: #FFC088 1px solid;
+        border-radius: 5px;
+    }
+    .image-bubble{
+        background-color: rgba(153, 153, 153, 0.65);
+        border-radius: 5px 0px 0px 5px;
+        padding: 5px;
+    }
+    .chat-content{
+        background-color: rgba(153, 153, 153, 0.29);
+        border-radius: 0px 5px 5px 0px;
+    }
     /*END TRICK PAGE*/
 }
