@@ -35,12 +35,9 @@
                         {% if videos %}
                             {% for video in videos %}
                                 {% if video.trick.id is same as id %}
-                                    <div class="tricks-images m-2">
-                                        <video controls class="desktop-dim custom-height">
-                                            <source src={{ video.url }}>
-                                            Sorry, your browser doesn't support embedded videos.
-                                        </video>
-                                    </div>
+                                        <div class="tricks-images m-2">
+                                            <iframe width="145" height="96" src={{ video.url }} frameborder="0"></iframe>
+                                        </div>
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
