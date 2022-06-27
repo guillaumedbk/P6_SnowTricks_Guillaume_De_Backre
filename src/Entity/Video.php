@@ -17,7 +17,7 @@ class Video
     #[ORM\Column(type: 'text')]
     private string $url;
 
-    #[ORM\Column(type: 'datetime_immutable')]
+    #[ORM\Column(type: 'datetime')]
     private \DateTime $publishAt;
 
     #[ORM\ManyToOne(targetEntity: Trick::class, inversedBy: 'videos')]
@@ -25,7 +25,7 @@ class Video
     private Trick $trick;
 
     //CONSTRUCTOR
-    public function __construct(string $url, \DateTime $publishAt, Trick $trick)
+    public function __construct(string $url, Trick $trick)
     {
         $this->url = $url;
         $this->publishAt =  new \DateTime('now', new \DateTimeZone('Europe/Paris'));
@@ -42,5 +42,17 @@ class Video
     {
         return $this->publishAt;
     }
+
+    public function setTrick(Trick $trick): void
+    {
+        $this->trick = $trick;
+    }
+
+    public function setUrl(string $url): void
+    {
+        $this->url = $url;
+    }
+
+
     
 }
