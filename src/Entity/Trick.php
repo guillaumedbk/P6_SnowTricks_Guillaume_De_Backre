@@ -47,6 +47,12 @@ class Trick
     #[ORM\Column(type: 'datetime')]
     private \DateTime $publishAt;
 
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Image::class)]
+    /**
+     * @Collection<int, Image>
+     */
+    private Collection $images;
+
     //CONSTRUCTOR
     public function __construct(string $title)
     {
@@ -54,6 +60,7 @@ class Trick
         $this->publishAt = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
         $this->chats = new ArrayCollection();
         $this->videos = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     //GETTERS AND SETTER
@@ -161,6 +168,36 @@ class Trick
     public function getPublishAt(): \DateTimeInterface
     {
         return $this->publishAt;
+    }
+
+    /**
+     * @return iterable<Image>
+     */
+    public function getImages(): iterable
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getTrick() === $this) {
+                $image->setTrick(null);
+            }
+        }
+
+        return $this;
     }
 
 }
