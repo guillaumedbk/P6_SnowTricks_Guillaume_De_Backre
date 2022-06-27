@@ -353,4 +353,48 @@ nav ul li, a{
         width:100%;
     }
     /*END FORMS PAGES*/
+
+    /*TRICK PAGE*/
+    .my-trick-container{
+        height:100%;
+        width:55%;
+        border: #FFC088 1px solid;
+        border-radius: 15px;
+        padding: 15px;
+        margin-top:1rem;
+
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .see-media{
+        display: none;
+    }
+    .medias{
+        margin:1rem;
+    }
+    .trick-title{
+        width:100%;
+        background-color: rgba(255, 161, 19, 0.43);
+        border-radius: 5px;
+        margin-bottom: 0.5rem;
+    }
+    .tricks-images{
+        margin-bottom:1rem;
+    }
+    .description-section{
+        display: flex;
+        flex-wrap: wrap;
+        width:90%;
+    }
+    .info-complementaire{
+        margin-top:1rem;
+        display: flex;
+        justify-content: space-between;
+        width:100%;
+    }
+    .espace-discussion{
+        width:90%;
+    }
+    /*END TRICK PAGE*/
 }

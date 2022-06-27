@@ -2,60 +2,84 @@
 
 {% block body %}
     {% if trick %}
-        <div class="my-trick-container">
-            <div class="image-content">
-                <img src='{{ trick.imageUrl }}' alt="{{ trick.title }}" class="object-fit-cover">
-            </div>
+        <div class="container d-flex justify-content-center">
+            <div class="my-trick-container">
 
-            <div class="see-media">
-                <button type="button" class="btn btn-lg btn-outline-warning">See medias</button>
-            </div>
+                <div class="trick-title">
+                    <h1 class="text-center">{{ trick.title }}</h1>
+                </div>
 
-            <div class="description-content">
-                <h2>Description de la figure</h2>
-                {{ trick.description }}
-            </div>
-            <div class="info-complementaire">
-                <div class="info-une">
-                    <p><em>Publié le:</em></p>
+                <div class="see-media">
+                    <button type="button" class="btn btn-lg btn-outline-warning">See medias</button>
                 </div>
-                <div class="info-deux">
-                    <p><em>Dernière modification:</em></p>
-                </div>
-                <div class="info-trois">
-                    <p><em>Niveau:</em></p>
-                </div>
-                <div class="info-trois">
-                    <p><em>Groupe:</em></p>
-                </div>
-            </div>
-            <hr class="dropdown-divider">
-            {% if chats %}
-                <div class="espace-discussion">
-                    <h2>Espace de discussion:</h2>
 
+                <div class="medias">
+                    <!-- TO DO BOUCLE SUR LES IMAGES/AJOUTER LA TABLE ONE TO MANY, ENVOYER LA DONNEE-->
+                    <div class="tricks-images">
+                        <img controls width="200" src={{ trick.imageUrl }} alt="{{ trick.title }}" class="object-fit-cover">
+                        <img controls width="200" src={{ trick.imageUrl }} alt="{{ trick.title }}" class="object-fit-cover">
+                        <img controls width="200" src={{ trick.imageUrl }} alt="{{ trick.title }}" class="object-fit-cover">
+                    </div>
+                    <div class="tricks-videos">
+                        <!--TO DO BOUCLE SUR LES VIDEOS/AJOUTER LA TABLE ONE TO MANY, ENVOYER LA DONNEE-->
+                        <video controls width="200">
 
-                    <ul class="w-100 d-flex list-unstyled flex-wrap">
-                        {% for chat in chats %}
-                        <li>
-                            <div class="discussion-bubble">
-                                <div class="image-bubble m-0 d-flex align-items-center">
-                                    {% for user in users %}
-                                        {% if user.id is same as id %}
-                                            <p class="m-0 text-uppercase">{{ user.firstname|slice(0, 1) }}.{{ user.name|slice(0, 1) }}</p>
-                                        {% endif %}
+                            <source src=" ">
+
+                            Sorry, your browser doesn't support embedded videos.
+                        </video>
+                    </div>
+                </div>
+
+                <section class="description-section">
+                    <div class="description-content">
+                        <h2>Description de la figure</h2>
+                        {{ trick.description }}
+                    </div>
+                    <div class="info-complementaire">
+                        <div class="info-une">
+                            <p class="text-secondary"><em>Publié le:</em></p>
+                        </div>
+                        <div class="info-deux">
+                            <p class="text-secondary"><em>Dernière modification:</em></p>
+                        </div>
+                        <div class="info-trois">
+                            <p class="text-secondary"><em>Niveau:</em></p>
+                        </div>
+                        <div class="info-trois">
+                            <p class="text-secondary"><em>Groupe:</em></p>
+                        </div>
+                    </div>
+                    <hr class="dropdown-divider">
+                </section>
+
+                {% if chats %}
+                    <div class="espace-discussion">
+                        <h2>Espace de discussion:</h2>
+
+                        <ul class="w-100 d-flex list-unstyled flex-wrap">
+                            {% for chat in chats %}
+                            <li>
+                                <div class="discussion-bubble">
+                                    <div class="image-bubble m-0 d-flex align-items-center">
+                                        {% for user in users %}
+                                            {% if user.id is same as id %}
+                                                <p class="m-0 text-uppercase">{{ user.firstname|slice(0, 1) }}.{{ user.name|slice(0, 1) }}</p>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="chat-content">
+                                        <p class="m-0">{{ chat.content }}</p>
+                                    </div>
                                     {% endfor %}
                                 </div>
-
-                                <div class="chat-content">
-                                    <p class="m-0">{{ chat.content }}</p>
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            {% endif %}
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
         </div>
+
     {% endif %}
 {% endblock %}
