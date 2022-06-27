@@ -53,6 +53,9 @@ class Video
         $this->url = $url;
     }
 
+    public function getTrick(): Trick
+    {
+        return $this->trick;
+    }
 
-    
 }

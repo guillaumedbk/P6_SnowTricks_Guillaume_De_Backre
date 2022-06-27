@@ -357,7 +357,7 @@ nav ul li, a{
     /*TRICK PAGE*/
     .my-trick-container{
         height:100%;
-        width:55%;
+        width:85%;
         border: #FFC088 1px solid;
         border-radius: 15px;
         padding: 15px;
@@ -370,8 +370,19 @@ nav ul li, a{
     .see-media{
         display: none;
     }
-    .medias{
-        margin:1rem;
+    .display-medias{
+        display: flex;
+    }
+    .medias-images{
+        width: 50%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .medias-videos{
+        width: 50%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: end;
     }
     .trick-title{
         width:100%;
@@ -388,7 +399,7 @@ nav ul li, a{
         width:90%;
     }
     .info-complementaire{
-        margin-top:1rem;
+        margin-top:3rem;
         display: flex;
         justify-content: space-between;
         width:100%;

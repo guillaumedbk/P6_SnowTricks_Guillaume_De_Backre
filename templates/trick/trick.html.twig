@@ -13,25 +13,38 @@
                     <button type="button" class="btn btn-lg btn-outline-warning">See medias</button>
                 </div>
 
-                <div class="medias">
-                    <!-- TO DO BOUCLE SUR LES IMAGES/AJOUTER LA TABLE ONE TO MANY, ENVOYER LA DONNEE-->
-                    <div class="tricks-images">
-                        <img controls width="200" src={{ trick.imageUrl }} alt="{{ trick.title }}" class="object-fit-cover">
-                        <img controls width="200" src={{ trick.imageUrl }} alt="{{ trick.title }}" class="object-fit-cover">
-                        <img controls width="200" src={{ trick.imageUrl }} alt="{{ trick.title }}" class="object-fit-cover">
+                <section class="display-medias">
+                    <div class="medias-images">
+                        <!-- TO DO BOUCLE SUR LES IMAGES/AJOUTER LA TABLE ONE TO MANY, ENVOYER LA DONNEE-->
+                        {% if pictures %}
+                            {% for picture in pictures %}
+                                {% if picture.trick.id is same as id %}
+                                    <div class="tricks-images m-2">
+                                        <img controls width="145" src={{ picture.url }} alt="{{ trick.title }}" class="object-fit-cover">
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
                     </div>
-                    <div class="tricks-videos">
-                        <!--TO DO BOUCLE SUR LES VIDEOS/AJOUTER LA TABLE ONE TO MANY, ENVOYER LA DONNEE-->
-                        <video controls width="200">
 
-                            <source src=" ">
-
-                            Sorry, your browser doesn't support embedded videos.
-                        </video>
+                    <div class="medias-videos">
+                        <!-- TO DO BOUCLE SUR LES IMAGES/AJOUTER LA TABLE ONE TO MANY, ENVOYER LA DONNEE-->
+                        {% if videos %}
+                            {% for video in videos %}
+                                {% if video.trick.id is same as id %}
+                                    <div class="tricks-images m-2">
+                                        <video controls width="145" height="96">
+                                            <source src={{ video.url }}>
+                                            Sorry, your browser doesn't support embedded videos.
+                                        </video>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
                     </div>
-                </div>
+                </section>
 
-                <section class="description-section">
+                <section class="description-section mt-5">
                     <div class="description-content">
                         <h2>Description de la figure</h2>
                         {{ trick.description }}
@@ -54,7 +67,7 @@
                 </section>
 
                 {% if chats %}
-                    <div class="espace-discussion">
+                    <div class="espace-discussion mt-5">
                         <h2>Espace de discussion:</h2>
 
                         <ul class="w-100 d-flex list-unstyled flex-wrap">
