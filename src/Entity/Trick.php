@@ -6,7 +6,6 @@ use App\Repository\TricksRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use JetBrains\PhpStorm\Pure;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: TricksRepository::class)]
@@ -45,10 +44,14 @@ class Trick
      */
     private Collection $videos;
 
+    #[ORM\Column(type: 'datetime')]
+    private \DateTime $publishAt;
+
     //CONSTRUCTOR
     public function __construct(string $title)
     {
         $this->title = $title;
+        $this->publishAt = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
         $this->chats = new ArrayCollection();
         $this->videos = new ArrayCollection();
     }
@@ -154,4 +157,10 @@ class Trick
 
         return $this;
     }
+
+    public function getPublishAt(): \DateTimeInterface
+    {
+        return $this->publishAt;
+    }
+
 }
