@@ -43,7 +43,8 @@ class UpdatePasswordController extends AbstractController
                 ->from(new Address('debackre.guillaume@gmail.com', 'Guillaume - Snowtricks'))
                 ->to($user->getEmail())
                 ->subject('Mot de passe mis à jour avec succès')
-                ->htmlTemplate('security/success_update_password.html.twig');
+                ->htmlTemplate('security/success_update_password.html.twig')
+                ->textTemplate('security/success_update_password.text.twig');
 
             //SEND EMAIL
             $mailer->send($message);

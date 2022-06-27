@@ -42,7 +42,8 @@ class ForgottenPasswordController extends AbstractController
                 ->from(new Address('debackre.guillaume@gmail.com', 'Guillaume - Snowtricks'))
                 ->to($EmailDataDTO->email)
                 ->subject('Réinitialisation du mot de passe')
-                ->htmlTemplate('security/forgotten_password_email.html.twig');
+                ->htmlTemplate('security/forgotten_password_email.html.twig')
+                ->textTemplate('security/forgotten_password_email.text.twig');
 
             //SEND EMAIL
             $mailer->send($message);
