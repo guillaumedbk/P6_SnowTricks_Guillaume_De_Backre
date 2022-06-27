@@ -1,4 +1,4 @@
-   function addMore(){
+function addMore(){
        let currentItem = 10;
        let loadMoreBtn = document.getElementById('load-more');
 
@@ -12,3 +12,12 @@
            loadMoreBtn.style.display = 'none';
        }
 }
+
+function seeMedia(){
+    let medias = document.getElementById('display-medias');
+    let button = document.getElementById('see-more-btn');
+    button.style.display = 'none';
+    medias.style.display = "flex";
+    medias.style.flexWrap = "wrap";
+}
+

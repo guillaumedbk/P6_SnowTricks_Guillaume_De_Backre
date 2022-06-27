@@ -112,84 +112,81 @@ nav ul li, a{
     /*END FOOTER*/
 
     /*TRICK PAGE*/
+    .trick-title{
+        width: 100%;
+        height: 10em;
+        background-color: rgba(255, 161, 19, 0.43);
+        border-radius: 5px;
+        margin-bottom: 0.5rem;
+    }
+    .tricks-images{
+        margin-bottom:1rem;
+    }
     .my-trick-container{
+        height:100%;
+        width:100%;
+        border: #FFC088 1px solid;
+        border-radius: 15px;
+        padding: 15px;
+        margin-top:1rem;
 
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 
-        display:grid;
+    .display-medias{
+        display: none;
 
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-template-rows: 1fr 95px 1fr 75px 75px 1fr 75px 75px;
     }
-    .image-content{
-        grid-column-start: 1;
-        grid-column-end: span 4;
-        grid-row-start: 1;
-        grid-row-end: span 1;
+    .desktop-dim{
+        width:100%;
     }
-    .see-media{
-        grid-column-start: 1;
-        grid-column-end: span 4;
-        grid-row-start: 2;
-        grid-row-end: 2;
-        align-self: center;
-        justify-self: center;
+    .custom-height{
+        height: 30rem;
     }
-    .description-content{
-        grid-column-start: 1;
-        grid-column-end: span 4;
-        grid-row-start: 3;
-        grid-row-end: 3;
-        align-self: center;
-        justify-self: center;
-        width: 37rem;
+    .medias-images{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .medias-videos{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .description-section{
+        display: flex;
+        flex-wrap: wrap;
+        width:90%;
     }
     .info-complementaire{
-        grid-column-start: 1;
-        grid-column-end: span 4;
-        grid-row-start: 4;
-        grid-row-end: 4;
-        margin-left:12em;
-        margin-right:12em;
-        margin-top: 3em;
+        margin-top:3rem;
         display: flex;
         justify-content: space-between;
-    }
-    .dropdown-divider{
-        grid-column-start: 2;
-        grid-column-end: span 2;
-        align-self: center;
+        width:100%;
     }
     .espace-discussion{
-        grid-column-start: 1;
-        grid-column-end: span 4;
-        grid-row-start: 6;
-        grid-row-end: 6;
-        align-self: center;
-        justify-self: center;
-        width: 37rem;
+        width:90%;
     }
     .discussion-bubble{
-        width:25rem;
+        width: 100%;
+        margin:1rem;
         display: flex;
-        margin-top: 15px;
+        border: #FFC088 1px solid;
+        border-radius: 5px;
     }
     .image-bubble{
-        background-color: dimgrey;
-        border-radius: 15px 0px 0px 15px;
-        border-right: solid grey;
-        diplay: flex;
-        justify-content: center;
-        align-items: center;
-        height:3rem;
-        width:5rem;
+        background-color: rgba(153, 153, 153, 0.65);
+        border-radius: 5px 0px 0px 5px;
+        padding: 5px;
     }
     .chat-content{
-        background-color: lightgrey;
-        border-radius: 0px 15px 15px 0px;
-        padding: 10px;
-        height:3rem;
-        width:15rem;
+        background-color: rgba(153, 153, 153, 0.29);
+        border-radius: 0px 5px 5px 0px;
+        width: 100%;
     }
+    /*END TRICK PAGE*/
     /*END TRICK PAGE*/
 }
 /*VERSION DESKTOP*/
@@ -422,6 +419,10 @@ nav ul li, a{
     .chat-content{
         background-color: rgba(153, 153, 153, 0.29);
         border-radius: 0px 5px 5px 0px;
+    }
+    .desktop-dim{
+        width:145px;
+        height:96px;
     }
     /*END TRICK PAGE*/
 }

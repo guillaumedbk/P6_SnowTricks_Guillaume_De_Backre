@@ -2,24 +2,24 @@
 
 {% block body %}
     {% if trick %}
-        <div class="container d-flex justify-content-center">
+        <div class="container-fluid d-flex justify-content-center">
             <div class="my-trick-container">
 
-                <div class="trick-title">
-                    <h1 class="text-center">{{ trick.title }}</h1>
+                <div class="trick-title d-flex align-items-center justify-content-center">
+                    <h1>{{ trick.title }}</h1>
                 </div>
 
-                <div class="see-media">
-                    <button type="button" class="btn btn-lg btn-outline-warning">See medias</button>
+                <div class="see-media mt-5" id="see-more-btn">
+                    <button type="button" class="btn btn-lg btn-outline-warning" onclick="seeMedia()">See medias</button>
                 </div>
 
-                <section class="display-medias">
+                <section class="display-medias" id="display-medias">
                     <div class="medias-images">
                         {% if pictures %}
                             {% for picture in pictures %}
                                 {% if picture.trick.id is same as id %}
                                     <div class="tricks-images m-2">
-                                        <img controls width="145" src={{ picture.url }} alt="{{ trick.title }}" class="object-fit-cover">
+                                        <img controls src={{ picture.url }} alt="{{ trick.title }}" class="object-fit-cover desktop-dim">
                                     </div>
                                 {% endif %}
                             {% endfor %}
@@ -31,7 +31,7 @@
                             {% for video in videos %}
                                 {% if video.trick.id is same as id %}
                                     <div class="tricks-images m-2">
-                                        <video controls width="145" height="96">
+                                        <video controls class="desktop-dim custom-height">
                                             <source src={{ video.url }}>
                                             Sorry, your browser doesn't support embedded videos.
                                         </video>
