@@ -27,17 +27,16 @@ class ForgottenPasswordController extends AbstractController
         $alert = null;
         $user = $userRepository->findOneBy(array('email' => $emailDTO->email));
         //RENDER TEMPLATE WITH THE ERROR IF NOT
-        if (!$user){
-            $alert = 'Identifiant inconnu, veuillez vous créer un compte:';
-            return $this->render('security/forgotten_password.html.twig', [
-                'ResetPasswordForm' => $form->createView(),
-                'alert' => $alert
-            ]);
-        }else{
-            if ($form->isSubmitted() && $form->isValid()) {
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            if (!$user){
+                $alert = 'Identifiant inconnu, veuillez vous créer un compte:';
+                return $this->render('security/forgotten_password.html.twig', [
+                    'ResetPasswordForm' => $form->createView(),
+                    'alert' => $alert
+                ]);
+            }else{
                 //CREATE AND PASS TOKEN IN URL
-
 
                 //SEND URL TO THE USER
                 $message =  (new TemplatedEmail())
@@ -51,8 +50,6 @@ class ForgottenPasswordController extends AbstractController
                 $mailer->send($message);
             }
         }
-
-
 
         return $this->render('security/forgotten_password.html.twig', [
             'ResetPasswordForm' => $form->createView(),
