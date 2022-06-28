@@ -16,8 +16,6 @@ use App\Form\ResetPasswordType;
 
 class ForgottenPasswordController extends AbstractController
 {
-
-
     #[Route('/forgotten/password', name: 'app_forgotten_password')]
     public function resetPassword(Request $request, UserRepository $userRepository, MailerInterface $mailer): Response
     {
@@ -25,34 +23,36 @@ class ForgottenPasswordController extends AbstractController
         $emailDTO = new EmailDTO();
         $form = $this->createForm(ResetPasswordType::class, $emailDTO);
         $form->handleRequest($request);
+        //CHECK IF USER EXIST
         $alert = null;
-
         $user = $userRepository->findOneBy(array('email' => $emailDTO->email));
-
+        //RENDER TEMPLATE WITH THE ERROR IF NOT
         if (!$user){
             $alert = 'Identifiant inconnu, veuillez vous créer un compte:';
             return $this->render('security/forgotten_password.html.twig', [
                 'ResetPasswordForm' => $form->createView(),
                 'alert' => $alert
             ]);
+        }else{
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                //CREATE AND PASS TOKEN IN URL
+
+
+                //SEND URL TO THE USER
+                $message =  (new TemplatedEmail())
+                    ->from(new Address('debackre.guillaume@gmail.com', 'Guillaume - Snowtricks'))
+                    ->to($emailDTO->email)
+                    ->subject('Réinitialisation du mot de passe')
+                    ->htmlTemplate('security/forgotten_password_email.html.twig')
+                    ->textTemplate('security/forgotten_password_email.text.twig');
+
+                //SEND EMAIL
+                $mailer->send($message);
+            }
         }
 
-        if ($form->isSubmitted() && $form->isValid()) {
 
-            //CREATE AND PASS TOKEN IN URL
-
-
-            //SEND URL TO THE USER
-            $message =  (new TemplatedEmail())
-                ->from(new Address('debackre.guillaume@gmail.com', 'Guillaume - Snowtricks'))
-                ->to($emailDTO->email)
-                ->subject('Réinitialisation du mot de passe')
-                ->htmlTemplate('security/forgotten_password_email.html.twig')
-                ->textTemplate('security/forgotten_password_email.text.twig');
-
-            //SEND EMAIL
-            $mailer->send($message);
-        }
 
         return $this->render('security/forgotten_password.html.twig', [
             'ResetPasswordForm' => $form->createView(),
