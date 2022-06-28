@@ -12,7 +12,7 @@ class Video
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private int $id;
+    private ?int $id = null;
 
     #[ORM\Column(type: 'text')]
     private string $url;
@@ -41,16 +41,6 @@ class Video
     public function getPublishAt(): \DateTimeImmutable
     {
         return $this->publishAt;
-    }
-
-    public function setTrick(Trick $trick): void
-    {
-        $this->trick = $trick;
-    }
-
-    public function setUrl(string $url): void
-    {
-        $this->url = $url;
     }
 
     public function getTrick(): Trick

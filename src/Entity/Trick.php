@@ -38,7 +38,7 @@ class Trick
      */
     private Collection $chats;
 
-    #[ORM\OneToMany(mappedBy: 'trick_id', targetEntity: Video::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Video::class, orphanRemoval: true)]
     /**
      * @Collection<int, Video>
      */

@@ -12,7 +12,7 @@ class Image
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private int $id;
+    private ?int $id = null;
 
     #[ORM\Column(type: 'text')]
     private string $url;
@@ -21,18 +21,18 @@ class Image
     private \DateTime $publishAt;
 
     #[ORM\ManyToOne(targetEntity: Trick::class, inversedBy: 'images')]
+    #[ORM\JoinColumn(nullable: false)]
     private Trick $trick;
 
     //CONSTRUCTOR
-    public function __construct(string $url)
+    public function __construct(string $url, Trick $trick)
     {
         $this->url = $url;
         $this->publishAt = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
     }
 
-
     //GETTERS AND SETTERS
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -47,22 +47,14 @@ class Image
         return $this->publishAt;
     }
 
-    public function getTrick(): ?Trick
+    public function getTrick(): Trick
     {
         return $this->trick;
-    }
-
-    public function setTrick(Trick $trick): void
-    {
-        $this->trick = $trick;
     }
 
     public function setUrl(string $url): void
     {
         $this->url = $url;
     }
-
-
-
 
 }
