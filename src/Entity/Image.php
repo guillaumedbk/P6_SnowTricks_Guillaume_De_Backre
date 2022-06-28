@@ -57,4 +57,10 @@ class Image
         $this->url = $url;
     }
 
+    public function setTrick(Trick $trick): void
+    {
+        $this->trick = $trick;
+    }
+
+
 }

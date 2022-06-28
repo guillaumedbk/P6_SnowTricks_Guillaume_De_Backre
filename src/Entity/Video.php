@@ -48,4 +48,15 @@ class Video
         return $this->trick;
     }
 
+    public function setTrick(Trick $trick): void
+    {
+        $this->trick = $trick;
+    }
+
+    public function setUrl(string $url): void
+    {
+        $this->url = $url;
+    }
+
+
 }
