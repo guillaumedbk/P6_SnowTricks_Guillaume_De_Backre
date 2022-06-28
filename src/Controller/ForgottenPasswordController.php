@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ForgottenPasswordController extends AbstractController
 {
-    #[Route('/forgotten/password', name: 'app_forgotten_password')]
+    #[Route('/forgotten/password/', name: 'app_forgotten_password')]
     public function resetPassword(Request $request, UserRepository $userRepository, MailerInterface $mailer, EntityManagerInterface $entityManager): Response
     {
         //RETRIEVE DATA IN THE DTO

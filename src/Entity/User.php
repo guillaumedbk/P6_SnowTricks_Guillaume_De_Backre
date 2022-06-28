@@ -59,7 +59,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $roles = [User::USER];
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $token;
+    private ?string $token = null;
 
     //CONSTRUCTOR
     public function __construct(string $firstname,string $name, string $email, string $password)
