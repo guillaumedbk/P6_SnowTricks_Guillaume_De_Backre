@@ -33,5 +33,4 @@ class TrickController extends AbstractController
             'pictures' => $images
         ]);
     }
-
 }
