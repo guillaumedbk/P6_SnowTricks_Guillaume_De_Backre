@@ -16,31 +16,36 @@ use App\Form\ResetPasswordType;
 
 class ForgottenPasswordController extends AbstractController
 {
-    private $alert;
+
 
     #[Route('/forgotten/password', name: 'app_forgotten_password')]
     public function resetPassword(Request $request, UserRepository $userRepository, MailerInterface $mailer): Response
     {
         //RETRIEVE DATA IN THE DTO
-        $email = new EmailDTO();
-        $form = $this->createForm(ResetPasswordType::class, $email);
+        $emailDTO = new EmailDTO();
+        $form = $this->createForm(ResetPasswordType::class, $emailDTO);
         $form->handleRequest($request);
+        $alert = null;
+
+        $user = $userRepository->findOneBy(array('email' => $emailDTO->email));
+
+        if (!$user){
+            $alert = 'Identifiant inconnu, veuillez vous créer un compte:';
+            return $this->render('security/forgotten_password.html.twig', [
+                'ResetPasswordForm' => $form->createView(),
+                'alert' => $alert
+            ]);
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $EmailDataDTO = $form->getData();
 
-            $user = $userRepository->findOneBy(array('email' => $EmailDataDTO->email));
+            //CREATE AND PASS TOKEN IN URL
 
-            if (!$user){
-                $this->alert = 'Identifiant inconnu, veuillez vous créer un compte';
-            }
-            $session = new Session();
-            $session->set('user', $user);
 
             //SEND URL TO THE USER
             $message =  (new TemplatedEmail())
                 ->from(new Address('debackre.guillaume@gmail.com', 'Guillaume - Snowtricks'))
-                ->to($EmailDataDTO->email)
+                ->to($emailDTO->email)
                 ->subject('Réinitialisation du mot de passe')
                 ->htmlTemplate('security/forgotten_password_email.html.twig')
                 ->textTemplate('security/forgotten_password_email.text.twig');
@@ -51,7 +56,7 @@ class ForgottenPasswordController extends AbstractController
 
         return $this->render('security/forgotten_password.html.twig', [
             'ResetPasswordForm' => $form->createView(),
-            'alert' => $this->alert
+            'alert' => $alert
         ]);
     }
 }
