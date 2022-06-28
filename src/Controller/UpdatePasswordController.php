@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UpdatePasswordController extends AbstractController
 {
-    #[Route('/update/password', name: 'app_update_password')]
+    #[Route('/update/password/{token}', name: 'app_update_password')]
     public function updatePassword(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasher, MailerInterface $mailer): Response
     {
         $form = $this->createForm(UpdatePasswordType::class);

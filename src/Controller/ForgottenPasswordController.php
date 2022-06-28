@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\DTO\EmailDTO;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,11 +14,12 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\ResetPasswordType;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ForgottenPasswordController extends AbstractController
 {
     #[Route('/forgotten/password', name: 'app_forgotten_password')]
-    public function resetPassword(Request $request, UserRepository $userRepository, MailerInterface $mailer): Response
+    public function resetPassword(Request $request, UserRepository $userRepository, MailerInterface $mailer, EntityManagerInterface $entityManager): Response
     {
         //RETRIEVE DATA IN THE DTO
         $emailDTO = new EmailDTO();
@@ -36,7 +38,13 @@ class ForgottenPasswordController extends AbstractController
                     'alert' => $alert
                 ]);
             }else{
-                //CREATE AND PASS TOKEN IN URL
+                //CREATE TOKEN AND SAVE IT
+                $token = md5(uniqid());
+                $user->setToken($token);
+                $entityManager->persist($user);
+                $entityManager->flush();
+                //URL
+                $url = $this->generateUrl('app_update_password', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
 
                 //SEND URL TO THE USER
                 $message =  (new TemplatedEmail())
@@ -44,7 +52,10 @@ class ForgottenPasswordController extends AbstractController
                     ->to($emailDTO->email)
                     ->subject('Réinitialisation du mot de passe')
                     ->htmlTemplate('security/forgotten_password_email.html.twig')
-                    ->textTemplate('security/forgotten_password_email.text.twig');
+                    ->textTemplate('security/forgotten_password_email.text.twig')
+                    ->context([
+                        'url' => $url
+                    ]);
 
                 //SEND EMAIL
                 $mailer->send($message);
