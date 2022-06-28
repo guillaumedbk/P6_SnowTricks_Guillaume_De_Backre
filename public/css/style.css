@@ -143,6 +143,10 @@ nav ul li, a{
     .desktop-dim{
         width:100%;
     }
+    .video-dim{
+        width:945px;
+        height: 496px;
+    }
     .custom-height{
         height: 30rem;
     }
@@ -425,6 +429,10 @@ nav ul li, a{
     .desktop-dim{
         width:145px;
         height:96px;
+    }
+    .video-dim{
+        width:145px;
+        height: 96px;
     }
     /*END TRICK PAGE*/
 }

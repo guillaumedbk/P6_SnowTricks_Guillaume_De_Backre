@@ -36,7 +36,7 @@
                             {% for video in videos %}
                                 {% if video.trick.id is same as id %}
                                         <div class="tricks-images m-2">
-                                            <iframe width="145" height="96" src={{ video.url }} frameborder="0"></iframe>
+                                            <iframe class="video-dim" src={{ video.url }} frameborder="0"></iframe>
                                         </div>
                                 {% endif %}
                             {% endfor %}
