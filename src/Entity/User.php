@@ -45,7 +45,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255)]
     private string $status;
 
-    #[ORM\OneToMany(mappedBy: 'userId', targetEntity: Chat::class, orphanRemoval: true)]
+        //chats
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Chat::class, orphanRemoval: true)]
     /**
      * @var Collection<int, Chat>
      */

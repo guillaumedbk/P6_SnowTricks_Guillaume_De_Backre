@@ -32,7 +32,7 @@ class Trick
     private ?string $imageUrl = null;
 
         //chats liaison
-    #[ORM\OneToMany(mappedBy: 'trickId', targetEntity: Chat::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Chat::class, orphanRemoval: true)]
     /**
      * @Collection<int, Chat>
      */
