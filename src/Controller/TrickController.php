@@ -9,9 +9,11 @@ use App\Repository\UserRepository;
 use App\Repository\VideoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class TrickController extends AbstractController
 {
+    #[Route(path: '/trick/{id}', name: 'app_trick')]
     public function __invoke(TricksRepository $tricksRepository, int $id, ChatRepository $chatRepository, UserRepository $userRepository, VideoRepository $videoRepository, ImageRepository $imageRepository): Response
     {
         $trick = $tricksRepository->find($id);
