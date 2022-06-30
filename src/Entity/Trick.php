@@ -38,7 +38,7 @@ class Trick
      */
     private Collection $chats;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Video::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Video::class, orphanRemoval: true, cascade: ['persist'])]
     /**
      * @Collection<int, Video>
      */
@@ -47,7 +47,7 @@ class Trick
     #[ORM\Column(type: 'datetime')]
     private \DateTime $publishAt;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Image::class)]
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Image::class, cascade: ['persist'])]
     /**
      * @Collection<int, Image>
      */
@@ -127,8 +127,8 @@ class Trick
     {
         if ($this->chats->removeElement($chat)) {
             // set the owning side to null (unless already changed)
-            if ($chat->getTrickId() === $this) {
-                $chat->setTrickId(null);
+            if ($chat->getTrick() === $this) {
+                $chat->setTrick(null);
             }
         }
 
@@ -147,7 +147,7 @@ class Trick
     {
         if (!$this->videos->contains($video)) {
             $this->videos[] = $video;
-            $video->setTrickId($this);
+            $video->setTrick($this);
         }
 
         return $this;
@@ -157,8 +157,8 @@ class Trick
     {
         if ($this->videos->removeElement($video)) {
             // set the owning side to null (unless already changed)
-            if ($video->getTrickId() === $this) {
-                $video->setTrickId(null);
+            if ($video->getTrick() === $this) {
+                $video->setTrick(null);
             }
         }
 
@@ -199,5 +199,8 @@ class Trick
 
         return $this;
     }
+
+
+
 
 }

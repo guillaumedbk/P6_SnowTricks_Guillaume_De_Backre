@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\DTO\TrickDTO;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,6 +16,12 @@ class CreateTrickType extends AbstractType
             ->add('title')
             ->add('description')
             ->add('imageUrl')
+            ->add('videoUrl')
+            ->add('images', FileType::class, [
+                'multiple' => true,
+                'mapped' => false,
+                'required' => false
+            ])
         ;
     }
 

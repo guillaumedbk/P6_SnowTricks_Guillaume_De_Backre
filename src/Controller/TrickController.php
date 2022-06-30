@@ -3,13 +3,18 @@
 namespace App\Controller;
 
 use App\DTO\TrickDTO;
+use App\Entity\Image;
+use App\Entity\Trick;
+use App\Entity\Video;
 use App\Form\CreateTrickType;
 use App\Repository\ChatRepository;
 use App\Repository\ImageRepository;
 use App\Repository\TricksRepository;
 use App\Repository\UserRepository;
 use App\Repository\VideoRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -39,10 +44,45 @@ class TrickController extends AbstractController
     }
 
     #[Route(path: 'create/trick/', name: 'app_create_trick')]
-    public function createTrick(): Response
+    public function createTrick(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $newTrick = new TrickDTO();
-        $form = $this->createForm(CreateTrickType::class, $newTrick);
+        //RETRIEVE DATA
+        $newTrickDTO = new TrickDTO();
+        $form = $this->createForm(CreateTrickType::class, $newTrickDTO);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            //NEW TRICK
+            $trick = new Trick($newTrickDTO->title);
+            $trick->setDescription($newTrickDTO->description);
+            $trick->setImageUrl($newTrickDTO->imageUrl);
+
+
+            //RETRIEVE IMAGE(S)
+            $images = $form->get('images')->getData();
+
+            //UPLOAD AND ADD ALL IMAGES
+            foreach ($images as $image){
+                //NEW FILE NAME
+                $file = md5(uniqid()) . '.' . $image->guessExtension();
+                //COPY IN UPLOAD DIR
+                $image->move($this->getParameter('images_directory'), $file);
+                //NEW IMAGE
+                $newImg = new Image($file, $trick);
+                //ADD IMAGE TO THE TRICK
+                $trick->addImage($newImg);
+            }
+
+            //ADD VIDEO
+            $video = new Video($newTrickDTO->videoUrl, $trick);
+            $trick->addVideo($video);
+
+            //SAVE IN DB
+            $entityManager->persist($trick);
+            $entityManager->flush();
+        }
+        //AFFICHER FORM AVEC ERREUR
 
         return $this->render('trick/create_trick.html.twig', [
             'createTrickForm' => $form->createView(),
