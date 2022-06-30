@@ -6,7 +6,6 @@ use App\Repository\TricksRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use JetBrains\PhpStorm\Pure;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: TricksRepository::class)]
@@ -33,17 +32,35 @@ class Trick
     private ?string $imageUrl = null;
 
         //chats liaison
-    #[ORM\OneToMany(mappedBy: 'trickId', targetEntity: Chat::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Chat::class, orphanRemoval: true)]
     /**
      * @Collection<int, Chat>
      */
     private Collection $chats;
 
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Video::class, orphanRemoval: true)]
+    /**
+     * @Collection<int, Video>
+     */
+    private Collection $videos;
+
+    #[ORM\Column(type: 'datetime')]
+    private \DateTime $publishAt;
+
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Image::class)]
+    /**
+     * @Collection<int, Image>
+     */
+    private Collection $images;
+
     //CONSTRUCTOR
     public function __construct(string $title)
     {
         $this->title = $title;
+        $this->publishAt = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
         $this->chats = new ArrayCollection();
+        $this->videos = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     //GETTERS AND SETTER
@@ -117,4 +134,70 @@ class Trick
 
         return $this;
     }
+
+    /**
+     * @return iterable<Video>
+     */
+    public function getVideos(): iterable
+    {
+        return $this->videos;
+    }
+
+    public function addVideo(Video $video): self
+    {
+        if (!$this->videos->contains($video)) {
+            $this->videos[] = $video;
+            $video->setTrickId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVideo(Video $video): self
+    {
+        if ($this->videos->removeElement($video)) {
+            // set the owning side to null (unless already changed)
+            if ($video->getTrickId() === $this) {
+                $video->setTrickId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPublishAt(): \DateTimeInterface
+    {
+        return $this->publishAt;
+    }
+
+    /**
+     * @return iterable<Image>
+     */
+    public function getImages(): iterable
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getTrick() === $this) {
+                $image->setTrick(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

@@ -1,0 +1,28 @@
+App\Entity\Image:
+  image1 :
+    __construct :
+      - https://cdn.pixabay.com/photo/2018/02/23/17/56/snowboarding-3176182_1280.jpg
+      - "@figure1"
+    trick: "@figure1"
+    url : https://cdn.pixabay.com/photo/2018/02/23/17/56/snowboarding-3176182_1280.jpg
+
+  image2 :
+    __construct :
+      - https://cdn.pixabay.com/photo/2016/01/26/00/26/canazei-1161799_1280.jpg
+      - "@figure1"
+    trick : "@figure1"
+    url : https://cdn.pixabay.com/photo/2016/01/26/00/26/canazei-1161799_1280.jpg
+
+  image3 :
+    __construct :
+      - https://cdn.pixabay.com/photo/2014/12/02/14/12/snowboarding-554048_1280.jpg
+      - "@figure1"
+    trick : "@figure1"
+    url : https://cdn.pixabay.com/photo/2014/12/02/14/12/snowboarding-554048_1280.jpg
+
+  image4 :
+    __construct :
+      - https://cdn.pixabay.com/photo/2015/12/15/18/29/snow-1094695_1280.jpg
+      - "@figure1"
+    trick : "@figure1"
+    url : https://cdn.pixabay.com/photo/2015/12/15/18/29/snow-1094695_1280.jpg

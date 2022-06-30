@@ -66,17 +66,12 @@ class Chat
     {
         $this->content = $content;
     }
-    /**
-     * @param Trick $trick
-     */
+
     public function setTrick(Trick $trick): void
     {
         $this->trick = $trick;
     }
 
-    /**
-     * @param User $user
-     */
     public function setUser(User $user): void
     {
         $this->user = $user;

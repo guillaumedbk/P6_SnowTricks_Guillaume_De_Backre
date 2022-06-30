@@ -1,0 +1,7 @@
+App\Entity\Video:
+  video{1..3} :
+    __construct :
+      - https://www.youtube.com/embed/5zH-YEvyztA
+      - "@figure1"
+    trick: "@figure1"
+    url : https://www.youtube.com/embed/5zH-YEvyztA
