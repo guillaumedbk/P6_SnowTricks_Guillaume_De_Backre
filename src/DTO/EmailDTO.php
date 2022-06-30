@@ -9,5 +9,6 @@ class EmailDTO
     #[Assert\Email(
         message: 'The email {{ value }} is not a valid email.',
     )]
+    #[Assert\NotBlank]
     public $email;
 }

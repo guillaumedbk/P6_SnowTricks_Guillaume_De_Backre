@@ -60,6 +60,8 @@ class RegistrationController extends AbstractController
                     ->htmlTemplate('registration/confirmation_email.html.twig')
                     ->textTemplate('registration/confirmation_email.text.twig')
             );
+
+            return $this->redirectToRoute('app_homepage');
         }
 
         return $this->render('registration/register.html.twig', [
@@ -99,6 +101,6 @@ class RegistrationController extends AbstractController
             $request
         );
 
-        return $this->redirectToRoute('home');
+        return $this->redirectToRoute('app_homepage');
     }
 }
