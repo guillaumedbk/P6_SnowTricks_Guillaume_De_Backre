@@ -21,6 +21,10 @@ class ForgottenPasswordController extends AbstractController
     #[Route('/forgotten/password/', name: 'app_forgotten_password')]
     public function resetPassword(Request $request, UserRepository $userRepository, MailerInterface $mailer, EntityManagerInterface $entityManager): Response
     {
+        //REDIRECT IF USER ALREADY CONNECTED
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_homepage');
+        }
         //RETRIEVE DATA IN THE DTO
         $emailDTO = new EmailDTO();
         $form = $this->createForm(ResetPasswordType::class, $emailDTO);
@@ -28,22 +32,24 @@ class ForgottenPasswordController extends AbstractController
         //CHECK IF USER EXIST
         $alert = null;
         $user = $userRepository->findOneBy(array('email' => $emailDTO->email));
-        //RENDER TEMPLATE WITH THE ERROR IF NOT
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //RENDER TEMPLATE WITH THE ERROR IF NOT EXIST
             if (!$user){
                 $alert = 'Identifiant inconnu, veuillez vous créer un compte:';
                 return $this->render('security/forgotten_password.html.twig', [
                     'ResetPasswordForm' => $form->createView(),
                     'alert' => $alert
                 ]);
-            }else{
+            }
+            else{
                 //CREATE TOKEN AND SAVE IT
                 $token = md5(uniqid());
                 $user->setToken($token);
                 $entityManager->persist($user);
                 $entityManager->flush();
-                //URL
+
+                //ABSOLUTE URL WITH TOKEN
                 $url = $this->generateUrl('app_update_password', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
 
                 //SEND URL TO THE USER
