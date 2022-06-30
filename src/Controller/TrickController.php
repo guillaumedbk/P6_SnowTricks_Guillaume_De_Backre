@@ -7,6 +7,7 @@ use App\Entity\Image;
 use App\Entity\Trick;
 use App\Entity\Video;
 use App\Form\CreateTrickType;
+use App\Form\ModifyTrickType;
 use App\Repository\ChatRepository;
 use App\Repository\ImageRepository;
 use App\Repository\TricksRepository;
@@ -58,7 +59,6 @@ class TrickController extends AbstractController
             $trick->setDescription($newTrickDTO->description);
             $trick->setImageUrl($newTrickDTO->imageUrl);
 
-
             //RETRIEVE IMAGE(S)
             $images = $form->get('images')->getData();
 
@@ -82,10 +82,24 @@ class TrickController extends AbstractController
             $entityManager->persist($trick);
             $entityManager->flush();
         }
-        //AFFICHER FORM AVEC ERREUR
 
         return $this->render('trick/create_trick.html.twig', [
             'createTrickForm' => $form->createView(),
+        ]);
+    }
+
+    #[Route(path: 'modify/trick/{id}', name: 'app_modify_trick')]
+    public function modifyTrick(Request $request): Response
+    {
+        //RETRIEVE DATA
+        $modifiedTrickDTO = new TrickDTO();
+        $form = $this->createForm(ModifyTrickType::class, $modifiedTrickDTO);
+        $form->handleRequest($request);
+
+
+
+        return $this->render('trick/modify_trick.html.twig', [
+            'modifyTrickForm' => $form->createView(),
         ]);
     }
 }
