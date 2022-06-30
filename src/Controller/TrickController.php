@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\DTO\TrickDTO;
+use App\Form\CreateTrickType;
 use App\Repository\ChatRepository;
 use App\Repository\ImageRepository;
 use App\Repository\TricksRepository;
@@ -33,6 +35,17 @@ class TrickController extends AbstractController
             'id' => $id,
             'videos' => $videos,
             'pictures' => $images
+        ]);
+    }
+
+    #[Route(path: 'create/trick/', name: 'app_create_trick')]
+    public function createTrick(): Response
+    {
+        $newTrick = new TrickDTO();
+        $form = $this->createForm(CreateTrickType::class, $newTrick);
+
+        return $this->render('trick/create_trick.html.twig', [
+            'createTrickForm' => $form->createView(),
         ]);
     }
 }
