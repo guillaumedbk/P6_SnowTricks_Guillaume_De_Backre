@@ -3,6 +3,10 @@
 {% block title %}Modify Trick{% endblock %}
 
 {% block body %}
+    <!-- HEADER -->
+    <div class="header">
+        {% include 'header.html.twig' %}
+    </div>
 
     <div class="container container-form">
         <h1 class="text-center text-uppercase text-warning fs-2">Modifier un trick</h1>
@@ -11,12 +15,23 @@
         {{ form_row(modifyTrickForm.title) }}
         {{ form_row(modifyTrickForm.description) }}
         {{ form_row(modifyTrickForm.imageUrl) }}
-        {{ form_row(modifyTrickForm.videoUrl) }}
         {{ form_row(modifyTrickForm.images) }}
+        <label for="videoUrl">Video Url</label>
 
-        <button type="submit" class="btn btn-warning btn-form">Submit</button>
+        {% if video %}
+            {% for item in video %}
+                <input type="url" name="videoUrl" id="url" class="mb-3 form-control" value="{{ item.url }}" autocomplete="videoUrl">
+            {% endfor %}
+            {{ form_widget(modifyTrickForm.videoUrl) }}
+        {% else %}
+            {{ form_widget(modifyTrickForm.videoUrl) }}
+        {% endif %}
+
+        <button type="submit" class="btn btn-warning btn-form mt-3">Submit</button>
 
         {{ form_end(modifyTrickForm) }}
+
+
 
     </div>
 

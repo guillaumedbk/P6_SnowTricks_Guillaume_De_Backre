@@ -89,17 +89,55 @@ class TrickController extends AbstractController
     }
 
     #[Route(path: 'modify/trick/{id}', name: 'app_modify_trick')]
-    public function modifyTrick(Request $request): Response
+    public function modifyTrick(Request $request, int $id, TricksRepository $tricksRepository, VideoRepository $videoRepository, ImageRepository $imageRepository,  EntityManagerInterface $entityManager): Response
     {
+        //VALUES
+        $trick = $tricksRepository->find($id);
+        $video = $videoRepository->findBy(['trick' => $id]);
+        $images = $imageRepository->findBy(['trick' => $id]);
+
         //RETRIEVE DATA
         $modifiedTrickDTO = new TrickDTO();
-        $form = $this->createForm(ModifyTrickType::class, $modifiedTrickDTO);
+        $form = $this->createForm(ModifyTrickType::class, $modifiedTrickDTO, [
+            'trick' => $trick
+        ]);
         $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $trick->setTitle($modifiedTrickDTO->title);
+            $trick->setDescription($modifiedTrickDTO->description);
+            $trick->setImageUrl($modifiedTrickDTO->imageUrl);
+            //RETRIEVE IMAGE(S)
+            $pictures = $form->get('images')->getData();
+            //UPLOAD AND ADD ALL IMAGES
+            foreach ($pictures as $image){
+                //NEW FILE NAME
+                $file = md5(uniqid()) . '.' . $image->guessExtension();
+                //COPY IN UPLOAD DIR
+                $image->move($this->getParameter('images_directory'), $file);
+                //NEW IMAGE
+                $newImg = new Image($file, $trick);
+                //ADD IMAGE TO THE TRICK
+                $trick->addImage($newImg);
+            }
+            //ADD VIDEO
+            $video = new Video($modifiedTrickDTO->videoUrl, $trick);
+            $trick->addVideo($video);
+
+            //SAVE IN DB
+            $entityManager->persist($trick);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_homepage');
+
+        }
 
 
         return $this->render('trick/modify_trick.html.twig', [
             'modifyTrickForm' => $form->createView(),
+            'trick' => $trick,
+            'video' => $video,
+            'pictures' => $images
         ]);
     }
 }
