@@ -60,7 +60,7 @@ class TrickController extends AbstractController
             $trick->setImageUrl($newTrickDTO->imageUrl);
 
             //RETRIEVE IMAGE(S)
-            $images = $form->get('images')->getData();
+            $images = $newTrickDTO->images;
 
             //UPLOAD AND ADD ALL IMAGES
             foreach ($images as $image){
@@ -81,6 +81,8 @@ class TrickController extends AbstractController
             //SAVE IN DB
             $entityManager->persist($trick);
             $entityManager->flush();
+
+            return $this->redirectToRoute('app_homepage');
         }
 
         return $this->render('trick/create_trick.html.twig', [
@@ -107,6 +109,7 @@ class TrickController extends AbstractController
             $trick->setTitle($modifiedTrickDTO->title);
             $trick->setDescription($modifiedTrickDTO->description);
             $trick->setImageUrl($modifiedTrickDTO->imageUrl);
+
             //RETRIEVE IMAGE(S)
             $pictures = $form->get('images')->getData();
             //UPLOAD AND ADD ALL IMAGES

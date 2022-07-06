@@ -21,4 +21,6 @@ class TrickDTO
 
     #[Assert\Url]
     public $videoUrl;
+
+    public array $images;
 }
