@@ -3,14 +3,19 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
-
-
+    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
     <div class="container container-form">
-        <h1 class="text-center text-uppercase text-warning fs-2">Créer votre compte</h1>
-        <p class="text-center mt-3">Vous avez déjà un compte ? <a href="{{ path('app_login') }}">Connectez-vous</a></p>
+        <h2>Vous possédez déjà un compte</h2>
+    </div>
+    {% else %}
+        {% for flash_error in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        {% endfor %}
+
+
+        <div class="container container-form">
+            <h1 class="text-center text-uppercase text-warning fs-2">Créer votre compte</h1>
+            <p class="text-center mt-3">Vous avez déjà un compte ? <a href="{{ path('app_login') }}">Connectez-vous</a></p>
 
             {{ form_start(registrationForm, {'attr': {'class': 'form bg-light m-2 p-4 rounded-3'}}) }}
             {{ form_row(registrationForm.firstname) }}
@@ -24,6 +29,7 @@
             <button type="submit" class="btn btn-warning btn-form">Register</button>
             {{ form_end(registrationForm) }}
 
-    </div>
+        </div>
 
+    {% endif %}
 {% endblock %}

@@ -32,6 +32,11 @@ class RegistrationController extends AbstractController
     #[Route(path: '/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
+        //REDIRECT IF USER ALREADY CONNECTED
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_homepage');
+        }
+
         //RETRIEVE DATA IN THE DTO
         $user = new UserDTO();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -60,6 +65,8 @@ class RegistrationController extends AbstractController
                     ->htmlTemplate('registration/confirmation_email.html.twig')
                     ->textTemplate('registration/confirmation_email.text.twig')
             );
+
+            return $this->redirectToRoute('app_homepage');
         }
 
         return $this->render('registration/register.html.twig', [
@@ -68,7 +75,7 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/verify/email', name: 'app_verify_email')]
-    public function verifyUserEmail(Request $request, TranslatorInterface $translator, UserRepository $userRepository, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator)//: Response
+    public function verifyUserEmail(Request $request, TranslatorInterface $translator, UserRepository $userRepository, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator): Response
     {
         $id = $request->get('id');
 
@@ -99,6 +106,6 @@ class RegistrationController extends AbstractController
             $request
         );
 
-        return $this->redirectToRoute('home');
+        return $this->redirectToRoute('app_homepage');
     }
 }
