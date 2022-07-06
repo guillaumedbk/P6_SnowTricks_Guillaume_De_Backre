@@ -140,4 +140,14 @@ class TrickController extends AbstractController
             'pictures' => $images
         ]);
     }
+
+    #[Route(path: 'delete/trick/{id}', name: 'app_delete_trick')]
+    public function deleteTrick(TricksRepository $tricksRepository, int $id, EntityManagerInterface $manager)
+    {
+        $trick = $tricksRepository->find($id);
+
+        $manager->remove($trick);
+        $manager->flush();
+        return $this->redirectToRoute('app_homepage');
+    }
 }

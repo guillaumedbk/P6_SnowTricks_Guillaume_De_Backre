@@ -47,7 +47,7 @@ class Trick
     #[ORM\Column(type: 'datetime')]
     private \DateTime $publishAt;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Image::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Image::class, cascade: ['persist', 'remove'])]
     /**
      * @Collection<int, Image>
      */

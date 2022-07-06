@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Cascade;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 class Image
@@ -21,7 +22,7 @@ class Image
     private \DateTime $publishAt;
 
     #[ORM\ManyToOne(targetEntity: Trick::class, inversedBy: 'images')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE" )]
     private Trick $trick;
 
     //CONSTRUCTOR
