@@ -27,10 +27,6 @@ class Trick
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description = null;
 
-        //imageUrl
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $imageUrl = null;
-
         //chats liaison
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Chat::class, orphanRemoval: true)]
     /**
@@ -89,18 +85,6 @@ class Trick
     public function setDescription(?string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getImageUrl(): ?string
-    {
-        return $this->imageUrl;
-    }
-
-    public function setImageUrl(?string $imageUrl): self
-    {
-        $this->imageUrl = $imageUrl;
 
         return $this;
     }
