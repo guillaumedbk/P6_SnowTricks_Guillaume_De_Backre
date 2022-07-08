@@ -49,8 +49,11 @@ class Trick
      */
     private Collection $images;
 
+    #[ORM\OneToOne(targetEntity: Image::class, cascade: ['persist', 'remove'])]
+    private Image $mainImage;
+
     //CONSTRUCTOR
-    public function __construct(string $title)
+    public function __construct(string $title, Image $mainImage)
     {
         $this->title = $title;
         $this->publishAt = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
@@ -184,7 +187,16 @@ class Trick
         return $this;
     }
 
+    public function getMainImage(): Image
+    {
+        return $this->mainImage;
+    }
 
+    public function setMainImage(Image $mainImage): self
+    {
+        $this->mainImage = $mainImage;
 
+        return $this;
+    }
 
 }
