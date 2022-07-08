@@ -8,6 +8,7 @@ use App\Entity\Trick;
 use App\Entity\Video;
 use App\Form\CreateTrickType;
 use App\Form\ModifyTrickType;
+use App\Manager\ImageFileManager;
 use App\Repository\ChatRepository;
 use App\Repository\ImageRepository;
 use App\Repository\TricksRepository;
@@ -45,7 +46,7 @@ class TrickController extends AbstractController
     }
 
     #[Route(path: 'create/trick/', name: 'app_create_trick')]
-    public function createTrick(Request $request, EntityManagerInterface $entityManager): Response
+    public function createTrick(Request $request, EntityManagerInterface $entityManager, ImageFileManager $imageFileManager): Response
     {
         //RETRIEVE DATA
         $newTrickDTO = new TrickDTO();
@@ -57,22 +58,11 @@ class TrickController extends AbstractController
             //NEW TRICK
             $trick = new Trick($newTrickDTO->title);
             $trick->setDescription($newTrickDTO->description);
-            $trick->setImageUrl($newTrickDTO->imageUrl);
 
             //RETRIEVE IMAGE(S)
             $images = $newTrickDTO->images;
-
-            //UPLOAD AND ADD ALL IMAGES
-            foreach ($images as $image){
-                //NEW FILE NAME
-                $file = md5(uniqid()) . '.' . $image->guessExtension();
-                //COPY IN UPLOAD DIR
-                $image->move($this->getParameter('images_directory'), $file);
-                //NEW IMAGE
-                $newImg = new Image($file, $trick);
-                //ADD IMAGE TO THE TRICK
-                $trick->addImage($newImg);
-            }
+            //UPLOAD MANAGER
+            $imageFileManager->uploadFile($images, $trick);
 
             //ADD VIDEO
             $video = new Video($newTrickDTO->videoUrl, $trick);

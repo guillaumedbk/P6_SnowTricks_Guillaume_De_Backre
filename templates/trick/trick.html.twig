@@ -24,7 +24,7 @@
                             {% for picture in pictures %}
                                 {% if picture.trick.id is same as id %}
                                     <div class="tricks-images m-2">
-                                        <img controls src={{ picture.url }} alt="{{ trick.title }}" class="object-fit-cover desktop-dim">
+                                        <img src="/uploads/{{ picture.url }}" class="card-img-top" alt={{ trick.title }}>
                                     </div>
                                 {% endif %}
                             {% endfor %}

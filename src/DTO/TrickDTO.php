@@ -17,9 +17,6 @@ class TrickDTO
     public $description;
 
     #[Assert\Url]
-    public $imageUrl;
-
-    #[Assert\Url]
     public $videoUrl;
 
     public array $images;

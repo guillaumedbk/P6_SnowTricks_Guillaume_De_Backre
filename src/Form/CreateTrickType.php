@@ -23,10 +23,6 @@ class CreateTrickType extends AbstractType
                 'attr' => array('placeholder' => 'Trick description'),
                 'required' => false
             ])
-            ->add('imageUrl', UrlType::class, [
-                'attr' => array('placeholder' => 'ex: https://cdn.pixabay.com/snowboard.jpg'),
-                'required' => false
-            ])
             ->add('videoUrl', UrlType::class, [
                 'attr' => array('placeholder' => 'ex: https://www.youtube.com/embed/'),
                 'required' => false
