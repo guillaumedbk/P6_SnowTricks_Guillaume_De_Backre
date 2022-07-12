@@ -19,11 +19,11 @@ class ImageFileManager
         //UPLOAD AND ADD ALL IMAGES
         foreach ($images as $image){
             //NEW FILE NAME
-            $file = md5(uniqid()) . '.' . $image->guessExtension();
+            $fileName = md5(uniqid()) . '.' . $image->guessExtension();
             //COPY IN UPLOAD DIR
-            $image->move($this->imageDirectory, $file);
+            $image->move($this->imageDirectory, $fileName);
             //NEW IMAGE
-            $newImg = new Image($file, $trick);
+            $newImg = new Image($fileName, $trick);
             //ADD IMAGE TO THE TRICK
             $trick->addImage($newImg);
         }
