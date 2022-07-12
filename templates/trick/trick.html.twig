@@ -20,8 +20,8 @@
 
                 <section class="display-medias" id="display-medias">
                     <div class="medias-images">
-                        {% if pictures %}
-                            {% for picture in pictures %}
+                        {% if trick.images is not null %}
+                            {% for picture in trick.images %}
                                 {% if picture.trick.id is same as id %}
                                     <div class="tricks-images m-2">
                                         <img src="/uploads/{{ picture.url }}" class="card-img-top" alt={{ trick.title }}>
@@ -32,8 +32,8 @@
                     </div>
 
                     <div class="medias-videos">
-                        {% if videos %}
-                            {% for video in videos %}
+                        {% if trick.videos is not null %}
+                            {% for video in trick.videos %}
                                 {% if video.trick.id is same as id %}
                                         <div class="tricks-images m-2">
                                             <iframe class="video-dim" src={{ video.url }} frameborder="0"></iframe>
@@ -66,33 +66,29 @@
                 </section>
 
                 {% if chats %}
-                <section class="espace-discussion mt-5">
-                        <h2>Espace de discussion:</h2>
+                    <section class="espace-discussion mt-5">
+                            <h2>Espace de discussion:</h2>
 
-                        <ul class="w-100 d-flex list-unstyled flex-wrap">
-                            {% for chat in chats %}
-                            <li class="w-100 d-flex align-items-center">
-                                <div class="discussion-bubble">
-                                    <div class="image-bubble m-0 d-flex align-items-center">
-                                        {% for user in users %}
-                                            {% if user.id is same as chat.user.id %}
-                                                <p class="m-0 text-uppercase">{{ user.firstname|slice(0, 1) }}.{{ user.name|slice(0, 1) }}</p>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </div>
+                            <ul class="w-100 d-flex list-unstyled flex-wrap">
+                                {% for chat in chats %}
+                                    <li class="w-100 d-flex align-items-center">
+                                        <div class="discussion-bubble">
+                                            <div class="image-bubble m-0 d-flex align-items-center">
+                                                        <p class="m-0 text-uppercase">{{ chat.user.firstname|slice(0, 1) }}.{{ chat.user.name|slice(0, 1) }}</p>
+                                            </div>
 
-                                    <div class="chat-content image-bubble">
-                                        <p class="m-0">{{ chat.content }}</p>
-                                    </div>
+                                            <div class="chat-content image-bubble">
+                                                <p class="m-0">{{ chat.content }}</p>
+                                            </div>
 
-                                </div>
-                                <div>
-                                   <p class="mb-0 text-secondary fst-italic">publié le {{ chat.publishAt|date('d-m-Y') }} à {{ chat.publishAt|date('H:i') }}</p>
-                                </div>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                </section>
+                                        </div>
+                                        <div>
+                                           <p class="mb-0 text-secondary fst-italic">publié le {{ chat.publishAt|date('d-m-Y') }} à {{ chat.publishAt|date('H:i') }}</p>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                    </section>
                 {% endif %}
             </div>
         </div>

@@ -30,18 +30,12 @@ class TrickController extends AbstractController
             ['trick' => $id],
             ['publishAt' => 'DESC']
         );
-        $users = $userRepository->findAll();
-        $videos = $videoRepository->findBy(['trick' => $id]);
-        $images = $imageRepository->findBy(['trick' => $id]);
 
         return $this->render('trick/trick.html.twig',[
             'trick' => $trick,
             'publishAt' => $trick->getPublishAt()->format(date("d-m-Y H:i:s")),
             'chats' => $chats,
-            'users' => $users,
             'id' => $id,
-            'videos' => $videos,
-            'pictures' => $images
         ]);
     }
 
