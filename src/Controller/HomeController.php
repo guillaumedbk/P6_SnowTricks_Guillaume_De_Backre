@@ -15,13 +15,11 @@ class HomeController extends AbstractController
     public function __invoke(TricksRepository $tricksRepository, ImageRepository $imageRepository): Response
     {
         $tricks = $tricksRepository->findAll();
-        $images = $imageRepository->findAll();
         $user = $this->getUser();
 
         return $this->render('home/index.html.twig',[
             'tricks' => $tricks,
             'user' => $user,
-            'images' => $images
         ]);
     }
 }
