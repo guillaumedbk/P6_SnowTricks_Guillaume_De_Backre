@@ -14,7 +14,10 @@ class ImageFileManager
         $this->imageDirectory = $imageDirectory;
     }
 
-    public function uploadFile(array $images, Trick $trick)
+    /**
+     * @param iterable<Image> $images
+     */
+    public function uploadFile(iterable $images, Trick $trick)
     {
         //UPLOAD AND ADD ALL IMAGES
         foreach ($images as $image){
