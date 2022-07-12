@@ -57,6 +57,8 @@ class TrickController extends AbstractController
             $images = $newTrickDTO->images;
             //UPLOAD MANAGER
             $imageFileManager->uploadFile($images, $trick);
+            //ADD MAIN IMAGE
+            $trick->setMainImageWithFirstImage();
 
             //ADD VIDEO
             $video = new Video($newTrickDTO->videoUrl, $trick);

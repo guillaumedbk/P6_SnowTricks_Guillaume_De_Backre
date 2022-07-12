@@ -50,6 +50,7 @@ class Trick
     private Collection $images;
 
     #[ORM\OneToOne(targetEntity: Image::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(onDelete: "CASCADE" )]
     private ?Image $mainImage;
 
     //CONSTRUCTOR
@@ -197,6 +198,11 @@ class Trick
         $this->mainImage = $mainImage;
 
         return $this;
+    }
+
+    public function setMainImageWithFirstImage(): void
+    {
+        $this->mainImage = $this->images->first();
     }
 
 }
