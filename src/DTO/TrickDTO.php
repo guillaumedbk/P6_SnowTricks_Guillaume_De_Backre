@@ -2,6 +2,7 @@
 
 namespace App\DTO;
 
+use App\Entity\Video;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class TrickDTO
@@ -16,8 +17,10 @@ class TrickDTO
     public $title;
     public $description;
 
-    #[Assert\Url]
-    public $videoUrl;
+    #[Assert\All(constraints: [
+        new Assert\Type(VideoDTO::class)
+    ])]
+    public array $videoUrl;
 
     public array $images;
 }

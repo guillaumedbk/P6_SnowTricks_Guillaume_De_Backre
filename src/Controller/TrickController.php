@@ -56,13 +56,19 @@ class TrickController extends AbstractController
             //RETRIEVE IMAGE(S)
             $images = $newTrickDTO->images;
             //UPLOAD MANAGER
-            $imageFileManager->uploadFile($images, $trick);
-            //ADD MAIN IMAGE
-            $trick->setMainImageWithFirstImage();
+            if($images){
+                $imageFileManager->uploadFile($images, $trick);
+                //ADD MAIN IMAGE
+                $trick->setMainImageWithFirstImage();
+            }
 
             //ADD VIDEO
-            $video = new Video($newTrickDTO->videoUrl, $trick);
-            $trick->addVideo($video);
+            foreach ($newTrickDTO->videoUrl as $item){
+                if($item->url){
+                    $video = new Video($item->url, $trick);
+                    $trick->addVideo($video);
+                }
+            }
 
             //SAVE IN DB
             $entityManager->persist($trick);

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\DTO\TrickDTO;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -23,8 +24,11 @@ class CreateTrickType extends AbstractType
                 'attr' => array('placeholder' => 'Trick description'),
                 'required' => false
             ])
-            ->add('videoUrl', UrlType::class, [
-                'attr' => array('placeholder' => 'ex: https://www.youtube.com/embed/'),
+            ->add('videoUrl', CollectionType::class, [
+                'entry_type' => VideoType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
                 'required' => false
             ])
             ->add('images', FileType::class, [
