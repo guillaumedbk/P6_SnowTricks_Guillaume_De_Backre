@@ -31,8 +31,7 @@ class CreateTrickType extends AbstractType
                 'by_reference' => false,
                 'required' => false
             ])
-            ->add('images', FileType::class, [
-                'multiple' => true,
+            ->add('images', ImageType::class, [
                 'mapped' => true,
                 'required' => false
             ])

@@ -2,7 +2,7 @@
 
 namespace App\DTO;
 
-use App\Entity\Video;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class TrickDTO
@@ -22,5 +22,5 @@ class TrickDTO
     ])]
     public array $videoUrl;
 
-    public array $images;
+    public ImageDTO $images;
 }

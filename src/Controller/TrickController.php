@@ -54,7 +54,8 @@ class TrickController extends AbstractController
             $trick->setDescription($newTrickDTO->description);
 
             //RETRIEVE IMAGE(S)
-            $images = $newTrickDTO->images;
+            $images = $newTrickDTO->images->file;
+
             //UPLOAD MANAGER
             if($images){
                 $imageFileManager->uploadFile($images, $trick);
