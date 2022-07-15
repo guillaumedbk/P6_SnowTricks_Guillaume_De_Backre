@@ -144,4 +144,18 @@ class TrickController extends AbstractController
         $manager->flush();
         return $this->redirectToRoute('app_homepage');
     }
+
+    #[Route(path: 'delete/image/{trickId}', name: 'app_delete_image')]
+    public function deleteImage(TricksRepository $tricksRepository, ImageRepository $imageRepository, int $trickId, EntityManagerInterface $manager)
+    {
+        $image = $imageRepository->findOneBy(['trick' => $trickId]);
+        $trick = $tricksRepository->find($trickId);
+        $trick->removeImage($image);
+        
+        //SAVE IN DB
+        $manager->persist($trick);
+        $manager->flush();
+
+        return $this->redirectToRoute('app_homepage');
+    }
 }

@@ -3,14 +3,10 @@
 namespace App\Form;
 
 use App\DTO\TrickDTO;
-use App\Entity\Trick;
-use App\Repository\TricksRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -28,10 +24,6 @@ class ModifyTrickType extends AbstractType
             ->add('description', TextareaType::class, [
                 'data' => $trick->getDescription(),
                 'required' => false,
-            ])
-            ->add('images', UrlType::class, [
-                'attr' => array('value' => $trick->getImages()),
-                'required' => false
             ])
             ->add('videoUrl', CollectionType::class, [
                 'entry_type' => VideoType::class,

@@ -18,7 +18,11 @@
         {{ form_row(modifyTrickForm.images) }}
         {% if trick.images is not null %}
             {% for image in trick.images %}
-                <img src="/uploads/{{ image.url }}" class="card-img-top" alt={{ trick.title }}>
+                <img src="/uploads/{{ image.url }}" class="card-img-top picture" alt={{ trick.title }}>
+                <a href="{{ path('app_delete_image', {trickId: trick.id}) }}">
+                    <i class="fa-solid fa-trash-can"></i>
+                </a>
+                <br>
             {% endfor %}
         {% endif %}
 
