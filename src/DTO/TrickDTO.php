@@ -22,5 +22,5 @@ class TrickDTO
     ])]
     public array $videoUrl;
 
-    public ImageDTO $images;
+    public ?ImageDTO $images = null;
 }

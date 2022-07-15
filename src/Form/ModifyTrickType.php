@@ -29,17 +29,21 @@ class ModifyTrickType extends AbstractType
                 'data' => $trick->getDescription(),
                 'required' => false,
             ])
-            ->add('imageUrl', UrlType::class, [
-                'attr' => array('value' => $trick->getImageUrl()),
+            ->add('images', UrlType::class, [
+                'attr' => array('value' => $trick->getImages()),
                 'required' => false
             ])
-            ->add('videoUrl', UrlType::class, [
-                'required' => false
+            ->add('videoUrl', CollectionType::class, [
+                'entry_type' => VideoType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'required' => false,
+                'label' => false
             ])
 
-            ->add('images', FileType::class, [
-                'multiple' => true,
-                'mapped' => false,
+            ->add('images', ImageType::class, [
+                'mapped' => true,
                 'required' => false
             ])
         ;

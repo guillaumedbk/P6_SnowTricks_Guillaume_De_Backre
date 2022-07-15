@@ -14,25 +14,28 @@
         {{ form_start(modifyTrickForm, {'attr': {'class': 'form bg-light m-2 p-4 rounded-3'}}) }}
         {{ form_row(modifyTrickForm.title) }}
         {{ form_row(modifyTrickForm.description) }}
-        {{ form_row(modifyTrickForm.imageUrl) }}
-        {{ form_row(modifyTrickForm.images) }}
-        <label for="videoUrl">Video Url</label>
 
-        {% if video %}
-            {% for item in video %}
-                <input type="url" name="videoUrl" id="url" class="mb-3 form-control" value="{{ item.url }}" autocomplete="videoUrl">
+        {{ form_row(modifyTrickForm.images) }}
+        {% if trick.images is not null %}
+            {% for image in trick.images %}
+                <img src="/uploads/{{ image.url }}" class="card-img-top" alt={{ trick.title }}>
             {% endfor %}
-            {{ form_widget(modifyTrickForm.videoUrl) }}
-        {% else %}
-            {{ form_widget(modifyTrickForm.videoUrl) }}
         {% endif %}
 
+        <label for="videoUrl">Video Url</label>
+        {% if trick.videos is not null %}
+            {% for item in trick.videos %}
+                <input type="url" name="videoUrl" id="url" class="mb-3 form-control" value="{{ item.url }}" autocomplete="videoUrl">
+            {% endfor %}
+        {% endif %}
+
+        <div id="create_trick_videoUrl" data-prototype="{{ form_row(modifyTrickForm.videoUrl.vars.prototype)|e('html_attr') }}">
+            {{ form_row(modifyTrickForm.videoUrl) }}
+            <span></span>
+        </div>
+
         <button type="submit" class="btn btn-warning btn-form mt-3">Submit</button>
-
         {{ form_end(modifyTrickForm) }}
-
-
-
     </div>
 
 {% endblock %}

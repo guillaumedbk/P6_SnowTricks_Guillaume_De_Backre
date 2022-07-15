@@ -84,12 +84,10 @@ class TrickController extends AbstractController
     }
 
     #[Route(path: 'modify/trick/{id}', name: 'app_modify_trick')]
-    public function modifyTrick(Request $request, int $id, TricksRepository $tricksRepository, VideoRepository $videoRepository, ImageRepository $imageRepository,  EntityManagerInterface $entityManager): Response
+    public function modifyTrick(Request $request, int $id, TricksRepository $tricksRepository, VideoRepository $videoRepository, ImageRepository $imageRepository,  EntityManagerInterface $entityManager, ImageFileManager $imageFileManager): Response
     {
         //VALUES
         $trick = $tricksRepository->find($id);
-        $video = $videoRepository->findBy(['trick' => $id]);
-        $images = $imageRepository->findBy(['trick' => $id]);
 
         //RETRIEVE DATA
         $modifiedTrickDTO = new TrickDTO();
@@ -101,24 +99,26 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $trick->setTitle($modifiedTrickDTO->title);
             $trick->setDescription($modifiedTrickDTO->description);
-            $trick->setImageUrl($modifiedTrickDTO->imageUrl);
 
             //RETRIEVE IMAGE(S)
-            $pictures = $form->get('images')->getData();
-            //UPLOAD AND ADD ALL IMAGES
-            foreach ($pictures as $image){
-                //NEW FILE NAME
-                $file = md5(uniqid()) . '.' . $image->guessExtension();
-                //COPY IN UPLOAD DIR
-                $image->move($this->getParameter('images_directory'), $file);
-                //NEW IMAGE
-                $newImg = new Image($file, $trick);
-                //ADD IMAGE TO THE TRICK
-                $trick->addImage($newImg);
+            if($modifiedTrickDTO->images){
+                $images = $modifiedTrickDTO->images->file;
+
+                //UPLOAD MANAGER
+                if($images){
+                    $imageFileManager->uploadFile($images, $trick);
+                    //ADD MAIN IMAGE
+                    $trick->setMainImageWithFirstImage();
+                }
             }
+
             //ADD VIDEO
-            $video = new Video($modifiedTrickDTO->videoUrl, $trick);
-            $trick->addVideo($video);
+            foreach ($modifiedTrickDTO->videoUrl as $item){
+                if($item->url){
+                    $video = new Video($item->url, $trick);
+                    $trick->addVideo($video);
+                }
+            }
 
             //SAVE IN DB
             $entityManager->persist($trick);
@@ -132,8 +132,6 @@ class TrickController extends AbstractController
         return $this->render('trick/modify_trick.html.twig', [
             'modifyTrickForm' => $form->createView(),
             'trick' => $trick,
-            'video' => $video,
-            'pictures' => $images
         ]);
     }
 
