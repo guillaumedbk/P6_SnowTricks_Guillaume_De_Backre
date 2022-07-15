@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\DTO\ChatDTO;
 use App\DTO\TrickDTO;
+use App\Entity\Chat;
 use App\Entity\Image;
 use App\Entity\Trick;
 use App\Entity\Video;
+use App\Form\ChatType;
 use App\Form\CreateTrickType;
 use App\Form\ModifyTrickType;
 use App\Manager\ImageFileManager;
@@ -23,19 +26,30 @@ use Symfony\Component\Routing\Annotation\Route;
 class TrickController extends AbstractController
 {
     #[Route(path: '/trick/{id}', name: 'app_trick')]
-    public function __invoke(TricksRepository $tricksRepository, int $id, ChatRepository $chatRepository, UserRepository $userRepository, VideoRepository $videoRepository, ImageRepository $imageRepository): Response
+    public function __invoke(Request $request, TricksRepository $tricksRepository, int $id, ChatRepository $chatRepository, UserRepository $userRepository, VideoRepository $videoRepository, ImageRepository $imageRepository, EntityManagerInterface $entityManager): Response
     {
-        $trick = $tricksRepository->find($id);
-        $chats = $chatRepository->findBy(
-            ['trick' => $id],
-            ['publishAt' => 'DESC']
-        );
+        //RETRIEVE DATA FOR CHAT
+        $newChatDTO = new ChatDTO();
+        $form = $this->createForm(ChatType::class, $newChatDTO);
+        $form->handleRequest($request);
 
+        //TRICK
+        $trick = $tricksRepository->find($id);
+        //USER
+        $user = $this->getUser();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //NEW CHAT
+            $chat = new Chat($newChatDTO->content, $trick, $user);
+            //SAVE IN DB
+            $entityManager->persist($chat);
+            $entityManager->flush();
+        }
         return $this->render('trick/trick.html.twig',[
             'trick' => $trick,
             'publishAt' => $trick->getPublishAt()->format(date("d-m-Y H:i:s")),
-            'chats' => $chats,
             'id' => $id,
+            'createChatForm' => $form->createView()
         ]);
     }
 

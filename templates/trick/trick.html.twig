@@ -65,12 +65,12 @@
                     </div>
                 </section>
 
-                {% if chats %}
+                {% if trick.chats %}
                     <section class="espace-discussion mt-5">
                             <h2>Espace de discussion:</h2>
 
                             <ul class="w-100 d-flex list-unstyled flex-wrap">
-                                {% for chat in chats %}
+                                {% for chat in trick.chats %}
                                     <li class="w-100 d-flex align-items-center">
                                         <div class="discussion-bubble">
                                             <div class="image-bubble m-0 d-flex align-items-center">
@@ -89,6 +89,10 @@
                                 {% endfor %}
                             </ul>
                     </section>
+                {% endif %}
+
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                   {% include 'home/chat.html.twig' %}
                 {% endif %}
             </div>
         </div>
