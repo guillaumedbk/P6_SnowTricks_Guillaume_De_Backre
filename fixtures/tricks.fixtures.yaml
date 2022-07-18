@@ -4,67 +4,67 @@ App\Entity\Trick:
       - stalefish
     title: stalefish
     description:  saisie de la carre backside de la planche entre les deux pieds avec la main arrière
-    imageUrl: https://cdn.pixabay.com/photo/2018/02/23/17/56/snowboarding-3176182_1280.jpg
+    mainImage: "@image1"
 
   figure2:
     __construct :
       - tail grab
     title: tail grab
     description:  saisie de la partie arrière de la planche, avec la main arrière
-    imageUrl: https://cdn.pixabay.com/photo/2016/01/26/00/26/canazei-1161799_1280.jpg
+    mainImage: "@image2"
 
   figure3:
     __construct :
       - nose grab
     title: nose grab
     description: saisie de la partie arrière de la planche, avec la main arrière
-    imageUrl: https://cdn.pixabay.com/photo/2014/12/02/14/12/snowboarding-554048_1280.jpg
+    mainImage: "@image3"
 
   figure4:
     __construct :
       - '540'
     title: '540'
     description: cinq quatre pour un tour et demi
-    imageUrl: https://cdn.pixabay.com/photo/2013/12/12/21/28/snowboard-227541_1280.jpg
+    mainImage: "@image4"
 
   figure5:
     __construct :
       - '360'
     title: '360'
     description: trois six pour un tour complet
-    imageUrl: https://cdn.pixabay.com/photo/2015/12/15/18/29/snow-1094695_1280.jpg
+    mainImage: "@image5"
 
   figure6:
     __construct :
       - truck driver
     title: truck driver
     description: saisie du carre avant et carre arrière avec chaque main (comme tenir un volant de voiture)
-    imageUrl: https://cdn.pixabay.com/photo/2018/09/11/09/25/snowboard-3668972_1280.jpg
+    mainImage: "@image6"
 
   figure7:
     __construct :
       - indy
     title: indy
     description: saisie de la carre frontside de la planche, entre les deux pieds, avec la main arrière
-    imageUrl: https://cdn.pixabay.com/photo/2018/02/28/21/07/fun-3189092_1280.jpg
+    mainImage: "@image7"
 
   figure8:
     __construct :
       - japan air
     title: japan air
     description: saisie de l'avant de la planche, avec la main avant, du côté de la carre frontside
-    imageUrl: https://cdn.pixabay.com/photo/2016/12/29/23/58/riders-1939640_1280.jpg
+    mainImage: "@image8"
 
   figure9:
     __construct :
       - big foot
     title: big foot
     description: pour trois tours
-    imageUrl: https://cdn.pixabay.com/photo/2015/02/01/05/51/bungee-jumping-619139_1280.jpg
+    mainImage: "@image9"
 
   figure10:
     __construct :
       - mute
     title: mute
     description: saisie de la carre frontside de la planche entre les deux pieds avec la main avant
-    imageUrl: https://cdn.pixabay.com/photo/2019/02/26/00/35/snowboard-4020919_1280.jpg
+    mainImage: "@image10"

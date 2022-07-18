@@ -1,28 +1,71 @@
 App\Entity\Image:
   image1 :
     __construct :
-      - https://cdn.pixabay.com/photo/2018/02/23/17/56/snowboarding-3176182_1280.jpg
+      - f188da68fbef82a6fc8a56a4324aef87.jpg
       - "@figure1"
     trick: "@figure1"
-    url : https://cdn.pixabay.com/photo/2018/02/23/17/56/snowboarding-3176182_1280.jpg
+    url : f188da68fbef82a6fc8a56a4324aef87.jpg
 
   image2 :
     __construct :
-      - https://cdn.pixabay.com/photo/2016/01/26/00/26/canazei-1161799_1280.jpg
+      - ddcb4b501e5676ee9b80acd0c8abf158.jpg
       - "@figure1"
     trick : "@figure1"
-    url : https://cdn.pixabay.com/photo/2016/01/26/00/26/canazei-1161799_1280.jpg
+    url : ddcb4b501e5676ee9b80acd0c8abf158.jpg
 
   image3 :
     __construct :
-      - https://cdn.pixabay.com/photo/2014/12/02/14/12/snowboarding-554048_1280.jpg
+      - 37896ee36871adffee71714cbf74572e.jpg
       - "@figure1"
     trick : "@figure1"
-    url : https://cdn.pixabay.com/photo/2014/12/02/14/12/snowboarding-554048_1280.jpg
+    url : 37896ee36871adffee71714cbf74572e.jpg
 
   image4 :
     __construct :
-      - https://cdn.pixabay.com/photo/2015/12/15/18/29/snow-1094695_1280.jpg
+      - ddcb4b501e5676ee9b80acd0c8abf158.jpg
       - "@figure1"
     trick : "@figure1"
-    url : https://cdn.pixabay.com/photo/2015/12/15/18/29/snow-1094695_1280.jpg
+    url : ddcb4b501e5676ee9b80acd0c8abf158.jpg
+
+  image5 :
+    __construct :
+      - 3093339ef778315a3939818ff081f515.jpg
+      - "@figure1"
+    trick : "@figure1"
+    url : 3093339ef778315a3939818ff081f515.jpg
+
+  image6 :
+    __construct :
+      - db07ecb8ae0f74057abff9653df5fe22.jpg
+      - "@figure1"
+    trick : "@figure1"
+    url : db07ecb8ae0f74057abff9653df5fe22.jpg
+
+  image7 :
+    __construct :
+      - 9959e6babb34e79b3a8b5a80f2c4b4e5.jpg
+      - "@figure1"
+    trick : "@figure1"
+    url : 9959e6babb34e79b3a8b5a80f2c4b4e5.jpg
+
+  image8 :
+    __construct :
+      - 431245cbe5865df4cec45e20fd85dfd2.jpg
+      - "@figure1"
+    trick : "@figure1"
+    url : 431245cbe5865df4cec45e20fd85dfd2.jpg
+
+  image9 :
+    __construct :
+      - 90f38c73d2900dee2658da2ca038e190.jpg
+      - "@figure1"
+    trick : "@figure1"
+    url : 90f38c73d2900dee2658da2ca038e190.jpg
+
+  image10 :
+    __construct :
+      - 66dc44652eeb52bf4f3327bceb458e90.jpg
+      - "@figure1"
+    trick : "@figure1"
+    url : 66dc44652eeb52bf4f3327bceb458e90.jpg
+
