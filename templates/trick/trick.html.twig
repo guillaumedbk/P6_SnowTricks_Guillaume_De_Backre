@@ -7,7 +7,19 @@
         {% include 'header.html.twig' %}
     </div>
     {% if trick %}
+
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <div class="d-flex justify-content-end mx-5 mt-5">
+                <a href="{{ path('app_modify_trick', {id: trick.id}) }}" class="p-1">
+                    <i class="fa-solid fa-pencil"></i>
+                </a>
+                <a href="{{ path('app_delete_trick', {id: trick.id}) }}" class="p-1">
+                    <i class="fa-solid fa-trash-can"></i>
+                </a>
+            </div>
+        {% endif %}
         <div class="container-fluid d-flex justify-content-center">
+
             <div class="my-trick-container">
 
                 <div class="trick-title d-flex align-items-center justify-content-center bg-light">
