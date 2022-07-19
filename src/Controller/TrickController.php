@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\DTO\ChatDTO;
 use App\DTO\TrickDTO;
 use App\Entity\Chat;
-use App\Entity\Image;
 use App\Entity\Trick;
 use App\Entity\Video;
 use App\Form\ChatType;
@@ -21,6 +20,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TrickController extends AbstractController
@@ -98,11 +98,13 @@ class TrickController extends AbstractController
     }
 
     #[Route(path: 'modify/trick/{id}', name: 'app_modify_trick')]
-    public function modifyTrick(Request $request, int $id, TricksRepository $tricksRepository, VideoRepository $videoRepository, ImageRepository $imageRepository,  EntityManagerInterface $entityManager, ImageFileManager $imageFileManager): Response
+    public function modifyTrick(Request $request, int $id, TricksRepository $tricksRepository, EntityManagerInterface $entityManager, ImageFileManager $imageFileManager): Response
     {
         //VALUES
         $trick = $tricksRepository->find($id);
-
+        if ($trick === null) {
+            throw new NotFoundHttpException("Not found", null);
+        }
         //RETRIEVE DATA
         $modifiedTrickDTO = new TrickDTO();
         $form = $this->createForm(ModifyTrickType::class, $modifiedTrickDTO, [
@@ -160,6 +162,9 @@ class TrickController extends AbstractController
     public function deleteTrick(TricksRepository $tricksRepository, int $id, EntityManagerInterface $manager)
     {
         $trick = $tricksRepository->find($id);
+        if ($trick === null) {
+            throw new NotFoundHttpException("Not found", null);
+        }
 
         $manager->remove($trick);
         $manager->flush();
