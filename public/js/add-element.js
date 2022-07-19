@@ -33,3 +33,14 @@ function addButton(collection, nouveauBouton){
         this.previousElementSibling.parentElement.remove();
     })
 }
+
+function deleteElement(id){
+    let image = document.querySelector('#image_'+id);
+    let deletedImages = document.getElementById('modify_trick_images_deletedImages');
+    if(deletedImages.value !== ''){
+        deletedImages.value += ';';
+    }
+    deletedImages.value += id;
+    image.remove();
+    console.log(deletedImages.value);
+}

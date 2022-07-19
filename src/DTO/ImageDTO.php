@@ -12,4 +12,6 @@ class ImageDTO
         new Assert\Type(UploadedFile::class)
     ])]
     public $file = null;
+
+    public $deletedImages = null;
 }

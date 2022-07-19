@@ -3,69 +3,49 @@ App\Entity\Image:
     __construct :
       - f188da68fbef82a6fc8a56a4324aef87.jpg
       - "@figure1"
-    trick: "@figure1"
-    url : f188da68fbef82a6fc8a56a4324aef87.jpg
 
   image2 :
     __construct :
       - ddcb4b501e5676ee9b80acd0c8abf158.jpg
-      - "@figure1"
-    trick : "@figure1"
-    url : ddcb4b501e5676ee9b80acd0c8abf158.jpg
+      - "@figure2"
 
   image3 :
     __construct :
       - 37896ee36871adffee71714cbf74572e.jpg
-      - "@figure1"
-    trick : "@figure1"
-    url : 37896ee36871adffee71714cbf74572e.jpg
+      - "@figure3"
 
   image4 :
     __construct :
       - ddcb4b501e5676ee9b80acd0c8abf158.jpg
-      - "@figure1"
-    trick : "@figure1"
-    url : ddcb4b501e5676ee9b80acd0c8abf158.jpg
+      - "@figure4"
 
   image5 :
     __construct :
       - 3093339ef778315a3939818ff081f515.jpg
-      - "@figure1"
-    trick : "@figure1"
-    url : 3093339ef778315a3939818ff081f515.jpg
+      - "@figure5"
 
   image6 :
     __construct :
       - db07ecb8ae0f74057abff9653df5fe22.jpg
-      - "@figure1"
-    trick : "@figure1"
-    url : db07ecb8ae0f74057abff9653df5fe22.jpg
+      - "@figure6"
 
   image7 :
     __construct :
       - 9959e6babb34e79b3a8b5a80f2c4b4e5.jpg
-      - "@figure1"
-    trick : "@figure1"
-    url : 9959e6babb34e79b3a8b5a80f2c4b4e5.jpg
+      - "@figure7"
 
   image8 :
     __construct :
       - 431245cbe5865df4cec45e20fd85dfd2.jpg
-      - "@figure1"
-    trick : "@figure1"
-    url : 431245cbe5865df4cec45e20fd85dfd2.jpg
+      - "@figure8"
 
   image9 :
     __construct :
       - 90f38c73d2900dee2658da2ca038e190.jpg
-      - "@figure1"
-    trick : "@figure1"
-    url : 90f38c73d2900dee2658da2ca038e190.jpg
+      - "@figure9"
 
   image10 :
     __construct :
       - 66dc44652eeb52bf4f3327bceb458e90.jpg
-      - "@figure1"
-    trick : "@figure1"
-    url : 66dc44652eeb52bf4f3327bceb458e90.jpg
+      - "@figure10"
 

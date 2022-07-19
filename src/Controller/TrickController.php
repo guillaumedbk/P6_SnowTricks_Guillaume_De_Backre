@@ -124,6 +124,14 @@ class TrickController extends AbstractController
                     //ADD MAIN IMAGE
                     $trick->setMainImageWithFirstImage();
                 }
+                $deletedImages = $modifiedTrickDTO->images->deletedImages;
+                $deletedElement = explode(';', $deletedImages);
+
+                foreach ($trick->getImages() as $image){
+                    if(in_array((string)$image->getId(), $deletedElement)){
+                        $trick->removeImage($image);
+                    }
+                }
             }
 
             //ADD VIDEO
@@ -142,7 +150,6 @@ class TrickController extends AbstractController
 
         }
 
-
         return $this->render('trick/modify_trick.html.twig', [
             'modifyTrickForm' => $form->createView(),
             'trick' => $trick,
@@ -156,20 +163,6 @@ class TrickController extends AbstractController
 
         $manager->remove($trick);
         $manager->flush();
-        return $this->redirectToRoute('app_homepage');
-    }
-
-    #[Route(path: 'delete/image/{trickId}', name: 'app_delete_image')]
-    public function deleteImage(TricksRepository $tricksRepository, ImageRepository $imageRepository, int $trickId, EntityManagerInterface $manager)
-    {
-        $image = $imageRepository->findOneBy(['trick' => $trickId]);
-        $trick = $tricksRepository->find($trickId);
-        $trick->removeImage($image);
-        
-        //SAVE IN DB
-        $manager->persist($trick);
-        $manager->flush();
-
         return $this->redirectToRoute('app_homepage');
     }
 }

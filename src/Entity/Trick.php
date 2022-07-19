@@ -35,7 +35,7 @@ class Trick
      */
     private Collection $chats;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Video::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Video::class, cascade: ['persist', 'remove'])]
     /**
      * @Collection<int, Video>
      */
@@ -44,7 +44,7 @@ class Trick
     #[ORM\Column(type: 'datetime')]
     private \DateTime $publishAt;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Image::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Image::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\JoinColumn(onDelete: "CASCADE" )]
     /**
      * @Collection<int, Image>
@@ -52,8 +52,8 @@ class Trick
     private Collection $images;
 
     #[ORM\OneToOne(targetEntity: Image::class, cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(onDelete: "CASCADE" )]
-    private ?Image $mainImage;
+    #[ORM\JoinColumn(onDelete: "SET NULL" )]
+    private ?Image $mainImage = null;
 
     //CONSTRUCTOR
     public function __construct(string $title)
@@ -172,7 +172,6 @@ class Trick
     {
         if (!$this->images->contains($image)) {
             $this->images[] = $image;
-            $image->setTrick($this);
         }
 
         return $this;
@@ -180,11 +179,9 @@ class Trick
 
     public function removeImage(Image $image): self
     {
-        if ($this->images->removeElement($image)) {
-            // set the owning side to null (unless already changed)
-            if ($image->getTrick() === $this) {
-                $image->setTrick($this);
-            }
+        $this->images->removeElement($image);
+        if($this->mainImage === $image){
+            $this->setMainImageWithFirstImage();
         }
 
         return $this;

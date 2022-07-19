@@ -7,9 +7,9 @@ use App\Entity\Trick;
 
 class ImageFileManager
 {
-    protected $imageDirectory;
+    private string $imageDirectory;
 
-    public function __construct($imageDirectory)
+    public function __construct(string $imageDirectory)
     {
         $this->imageDirectory = $imageDirectory;
     }
