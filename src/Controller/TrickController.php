@@ -93,6 +93,8 @@ class TrickController extends AbstractController
             $entityManager->persist($trick);
             $entityManager->flush();
 
+            $this->addFlash('success','Trick créé avec succès !');
+
             return $this->redirectToRoute('app_homepage');
         }
 
@@ -156,6 +158,8 @@ class TrickController extends AbstractController
             $entityManager->persist($trick);
             $entityManager->flush();
 
+            $this->addFlash('success','Trick modifié avec succès !');
+
             return $this->redirectToRoute('app_homepage');
 
         }
@@ -181,6 +185,9 @@ class TrickController extends AbstractController
 
         $manager->remove($trick);
         $manager->flush();
+
+        $this->addFlash('success','Trick supprimé avec succès !');
+
         return $this->redirectToRoute('app_homepage');
     }
 }
