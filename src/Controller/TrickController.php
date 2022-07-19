@@ -56,6 +56,10 @@ class TrickController extends AbstractController
     #[Route(path: 'create/trick/', name: 'app_create_trick')]
     public function createTrick(Request $request, EntityManagerInterface $entityManager, ImageFileManager $imageFileManager): Response
     {
+        //REDIRECT IF USER IS NOT CONNECTED
+        if ($this->getUser() === null) {
+            return $this->redirectToRoute('app_login');
+        }
         //RETRIEVE DATA
         $newTrickDTO = new TrickDTO();
         $form = $this->createForm(CreateTrickType::class, $newTrickDTO);
@@ -100,6 +104,10 @@ class TrickController extends AbstractController
     #[Route(path: 'modify/trick/{id}', name: 'app_modify_trick')]
     public function modifyTrick(Request $request, int $id, TricksRepository $tricksRepository, EntityManagerInterface $entityManager, ImageFileManager $imageFileManager): Response
     {
+        //REDIRECT IF USER IS NOT CONNECTED
+        if ($this->getUser() === null) {
+            return $this->redirectToRoute('app_login');
+        }
         //VALUES
         $trick = $tricksRepository->find($id);
         if ($trick === null) {
@@ -161,6 +169,11 @@ class TrickController extends AbstractController
     #[Route(path: 'delete/trick/{id}', name: 'app_delete_trick')]
     public function deleteTrick(TricksRepository $tricksRepository, int $id, EntityManagerInterface $manager)
     {
+        //REDIRECT IF USER IS NOT CONNECTED
+        if ($this->getUser() === null) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $trick = $tricksRepository->find($id);
         if ($trick === null) {
             throw new NotFoundHttpException("Not found", null);
