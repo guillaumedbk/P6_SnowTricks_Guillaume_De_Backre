@@ -43,15 +43,18 @@
                         </div>
                 {% endfor%}
 
-                {% if tricks |length  > 10 %}
-                    <div id="loading">
-                        <button type="button" id="load-more" class="btn btn-lg btn-outline-warning" onclick="addMore()">Load more</button>
-                    </div>
+            {% if tricks|length < total %}
+                        <div id="loading" class="text-center">
+                            <button type="button" id="load-more" class="btn btn-lg btn-outline-warning"><a href="?trickLoad={{ trickLoad+5 }}#tricks-part-homepage">Load More</a></button>
+                        </div>
+            {% endif %}
 
-                    <div class="fleche-haut d-flex justify-content-end">
-                        <a href="#tricks-part-homepage"><i class="fa-solid fa-arrow-up"></i></a>
-                    </div>
-                {% endif %}
+            {% if tricks|length > 10 %}
+                <div class="fleche-haut d-flex justify-content-end">
+                    <a href="#tricks-part-homepage"><i class="fa-solid fa-arrow-up"></i></a>
+                </div>
+            {% endif %}
+
         {% endif %}
     </div>
 
