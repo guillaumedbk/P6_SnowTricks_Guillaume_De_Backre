@@ -107,7 +107,14 @@ class TrickController extends AbstractController
 
             //SAVE IN DB
             $entityManager->persist($trick);
-            $entityManager->flush();
+            try{
+                $entityManager->flush();
+            }catch(\Exception $exception){
+                $this->addFlash('error','Problème lors de l\'enregistrement en base de données !');
+                return $this->render('trick/create_trick.html.twig', [
+                    'createTrickForm' => $form->createView(),
+                ]);
+            }
 
             $this->addFlash('success','Trick créé avec succès !');
 

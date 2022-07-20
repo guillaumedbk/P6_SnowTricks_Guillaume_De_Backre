@@ -20,7 +20,7 @@ class Trick
     private ?int $id = null;
 
         //title
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
     private string $title;
 
         //description

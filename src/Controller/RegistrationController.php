@@ -54,7 +54,14 @@ class RegistrationController extends AbstractController
                 )
             );
             $entityManager->persist($newUser);
-            $entityManager->flush();
+            try{
+                $entityManager->flush();
+            }catch(\Exception $exception){
+                $this->addFlash('error','Problème lors de l\'enregistrement en base de données !');
+                return $this->render('registration/register.html.twig', [
+                    'registrationForm' => $form->createView(),
+                ]);
+            }
 
             //SEND URL TO THE USER TO CONFIRM EMAIL
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $newUser,
