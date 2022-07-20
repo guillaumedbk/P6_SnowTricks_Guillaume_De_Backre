@@ -10,10 +10,10 @@
 
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
             <div class="d-flex justify-content-end mx-5 mt-5">
-                <a href="{{ path('app_modify_trick', {id: trick.id}) }}" class="p-1">
+                <a href="{{ path('app_modify_trick', {slug: trick.slug}) }}" class="p-1">
                     <i class="fa-solid fa-pencil"></i>
                 </a>
-                <a href="{{ path('app_delete_trick', {id: trick.id}) }}" class="p-1">
+                <a href="{{ path('app_delete_trick', {slug: trick.slug}) }}" class="p-1">
                     <i class="fa-solid fa-trash-can"></i>
                 </a>
             </div>
@@ -66,7 +66,7 @@
                             <p class="text-secondary"><em>Publié le: {{ publishAt }}</em>
                         </div>
                         <div class="info-deux">
-                            <p class="text-secondary"><em>Dernière modification: {{ lastModified }}</em></p>
+                            <p class="text-secondary"><em>Dernière modification: {{ lastModified |date('d-m-Y') }}</em></p>
                         </div>
                         <div class="info-trois">
                             <p class="text-secondary"><em>Niveau:</em></p>

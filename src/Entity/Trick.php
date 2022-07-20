@@ -44,7 +44,7 @@ class Trick
     private \DateTime $publishAt;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
-    private \DateTime $lastModified;
+    private ?\DateTime $lastModified = null;
 
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Image::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\JoinColumn(onDelete: "CASCADE" )]
@@ -56,6 +56,9 @@ class Trick
     #[ORM\OneToOne(targetEntity: Image::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(onDelete: "SET NULL" )]
     private ?Image $mainImage = null;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $slug;
 
     //CONSTRUCTOR
     public function __construct(string $title)
@@ -206,7 +209,7 @@ class Trick
         $this->mainImage = $this->images->first();
     }
 
-    public function getLastModified(): \DateTime
+    public function getLastModified(): ?\DateTime
     {
         return $this->lastModified;
     }
@@ -216,6 +219,21 @@ class Trick
         $this->lastModified = $lastModified;
     }
 
+    public function newSlug(string $title): string
+    {
+        return mb_strtolower(preg_replace(array('/[^a-zA-Z0-9 \'-]/', '/[ -\']+/', '/^-|-$/'),
+            array('', '-', ''), iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $title)));
+    }
 
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(): self
+    {
+        $this->slug = $this->newSlug($this->title);
+        return $this;
+    }
 
 }

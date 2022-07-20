@@ -25,11 +25,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TrickController extends AbstractController
 {
-    #[Route(path: '/trick/{id}', name: 'app_trick')]
-    public function __invoke(Request $request, TricksRepository $tricksRepository, int $id, ChatRepository $chatRepository, UserRepository $userRepository, VideoRepository $videoRepository, ImageRepository $imageRepository, EntityManagerInterface $entityManager): Response
+    #[Route(path: '/trick/{slug}', name: 'app_trick')]
+    public function __invoke(Request $request, TricksRepository $tricksRepository, string $slug, ChatRepository $chatRepository, UserRepository $userRepository, VideoRepository $videoRepository, ImageRepository $imageRepository, EntityManagerInterface $entityManager): Response
     {
         //TRICK
-        $trick = $tricksRepository->find($id);
+        $trick = $tricksRepository->findOneBy(['slug' => $slug]);
 
         //Number of comment per pages
         $limit = 2;
@@ -54,7 +54,7 @@ class TrickController extends AbstractController
             //SAVE IN DB
             $entityManager->persist($chat);
             $entityManager->flush();
-            return $this->redirectToRoute('app_trick', ['id' => $id]);
+            return $this->redirectToRoute('app_trick', ['title' => $trick->getTitle()]);
         }
         return $this->render('trick/trick.html.twig',[
             'trick' => $trick,
@@ -63,8 +63,8 @@ class TrickController extends AbstractController
             'limit' => $limit,
             'page' => $page,
             'publishAt' => $trick->getPublishAt()->format(date("d-m-Y H:i:s")),
-            'lastModified' => $trick->getLastModified()->format(date("d-m-Y H:i:s")),
-            'id' => $id,
+            'lastModified' => $trick->getLastModified(),
+            'id' => $trick->getId(),
             'createChatForm' => $form->createView()
         ]);
     }
@@ -86,6 +86,7 @@ class TrickController extends AbstractController
             //NEW TRICK
             $trick = new Trick($newTrickDTO->title);
             $trick->setDescription($newTrickDTO->description);
+            $trick->setSlug();
 
             //RETRIEVE IMAGE(S)
             if($newTrickDTO->images != null){
@@ -127,15 +128,15 @@ class TrickController extends AbstractController
         ]);
     }
 
-    #[Route(path: 'modify/trick/{id}', name: 'app_modify_trick')]
-    public function modifyTrick(Request $request, int $id, TricksRepository $tricksRepository, EntityManagerInterface $entityManager, ImageFileManager $imageFileManager): Response
+    #[Route(path: 'modify/trick/{slug}', name: 'app_modify_trick')]
+    public function modifyTrick(Request $request, string $slug, TricksRepository $tricksRepository, EntityManagerInterface $entityManager, ImageFileManager $imageFileManager): Response
     {
         //REDIRECT IF USER IS NOT CONNECTED
         if ($this->getUser() === null) {
             return $this->redirectToRoute('app_login');
         }
         //VALUES
-        $trick = $tricksRepository->find($id);
+        $trick = $tricksRepository->findOneBy(['slug' => $slug]);
         if ($trick === null) {
             throw new NotFoundHttpException("Not found", null);
         }
@@ -195,15 +196,15 @@ class TrickController extends AbstractController
         ]);
     }
 
-    #[Route(path: 'delete/trick/{id}', name: 'app_delete_trick')]
-    public function deleteTrick(TricksRepository $tricksRepository, int $id, EntityManagerInterface $manager)
+    #[Route(path: 'delete/trick/{slug}', name: 'app_delete_trick')]
+    public function deleteTrick(TricksRepository $tricksRepository, string $slug, EntityManagerInterface $manager)
     {
         //REDIRECT IF USER IS NOT CONNECTED
         if ($this->getUser() === null) {
             return $this->redirectToRoute('app_login');
         }
 
-        $trick = $tricksRepository->find($id);
+        $trick = $tricksRepository->findOneBy(['slug' => $slug]);
         if ($trick === null) {
             throw new NotFoundHttpException("Not found", null);
         }

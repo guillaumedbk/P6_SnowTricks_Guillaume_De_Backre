@@ -24,18 +24,17 @@
         {% if tricks %}
                 {% for figure in tricks %}
                         <div class="card grid-item d-flex justify-content-between">
-                            <a href="{{ path('app_trick', {id: figure.id}) }}">
-
+                            <a href="{{ path('app_trick', {slug: figure.slug}) }}">
                                 {% if figure.mainImage is not null %}
                                     <img src="/uploads/{{ figure.mainImage.url }}" class="card-img-top" alt={{ figure.title }}>
                                 {% endif %}
 
                                 <div class="card-body d-flex justify-content-around align-items-center ">
                                         <h5 class="card-title">{{ figure.title }}</h5>
-                                        <a href="{{ path('app_modify_trick', {id: figure.id}) }}">
+                                        <a href="{{ path('app_modify_trick', {slug: figure.slug}) }}">
                                         <i class="fa-solid fa-pencil"></i>
                                         </a>
-                                        <a href="{{ path('app_delete_trick', {id: figure.id}) }}">
+                                        <a href="{{ path('app_delete_trick', {slug: figure.slug}) }}">
                                         <i class="fa-solid fa-trash-can"></i>
                                         </a>
                                 </div>
