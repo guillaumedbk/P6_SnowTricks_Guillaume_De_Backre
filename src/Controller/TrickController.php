@@ -28,13 +28,23 @@ class TrickController extends AbstractController
     #[Route(path: '/trick/{id}', name: 'app_trick')]
     public function __invoke(Request $request, TricksRepository $tricksRepository, int $id, ChatRepository $chatRepository, UserRepository $userRepository, VideoRepository $videoRepository, ImageRepository $imageRepository, EntityManagerInterface $entityManager): Response
     {
+        //TRICK
+        $trick = $tricksRepository->find($id);
+
+        //Number of comment per pages
+        $limit = 2;
+        $page = (int)$request->query->get("page", 0);
+        $offset = (($page * $limit)-$page);
+        $chats = $chatRepository->findBy(['trick' => $trick], ['publishAt' => 'desc'], $limit, $offset);
+        $allChats = $chatRepository->findBy(['trick' => $trick]);
+        //Number of chats
+        $numberOfChats = count($allChats);
+
         //RETRIEVE DATA FOR CHAT
         $newChatDTO = new ChatDTO();
         $form = $this->createForm(ChatType::class, $newChatDTO);
         $form->handleRequest($request);
 
-        //TRICK
-        $trick = $tricksRepository->find($id);
         //USER
         $user = $this->getUser();
 
@@ -44,9 +54,14 @@ class TrickController extends AbstractController
             //SAVE IN DB
             $entityManager->persist($chat);
             $entityManager->flush();
+            return $this->redirectToRoute('app_trick', ['id' => $id]);
         }
         return $this->render('trick/trick.html.twig',[
             'trick' => $trick,
+            'chats' => $chats,
+            'total' => $numberOfChats,
+            'limit' => $limit,
+            'page' => $page,
             'publishAt' => $trick->getPublishAt()->format(date("d-m-Y H:i:s")),
             'id' => $id,
             'createChatForm' => $form->createView()

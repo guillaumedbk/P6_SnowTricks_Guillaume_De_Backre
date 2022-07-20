@@ -77,16 +77,16 @@
                     </div>
                 </section>
 
-                {% if trick.chats %}
-                    <section class="espace-discussion mt-5">
+                {% if chats %}
+                    <section class="espace-discussion mt-5" id="discussion">
                             <h2>Espace de discussion:</h2>
 
                             <ul class="w-100 d-flex list-unstyled flex-wrap">
-                                {% for chat in trick.chats %}
+                                {% for chat in chats %}
                                     <li class="w-100 d-flex align-items-center">
                                         <div class="discussion-bubble">
                                             <div class="image-bubble m-0 d-flex align-items-center">
-                                                        <p class="m-0 text-uppercase">{{ chat.user.firstname|slice(0, 1) }}.{{ chat.user.name|slice(0, 1) }}</p>
+                                                <p class="m-0 text-uppercase">{{ chat.user.firstname|slice(0, 1) }}.{{ chat.user.name|slice(0, 1) }}</p>
                                             </div>
 
                                             <div class="chat-content image-bubble">
@@ -100,6 +100,16 @@
                                     </li>
                                 {% endfor %}
                             </ul>
+
+                            {% if total > limit %}
+                            <ul class="pagination">
+                                {% for item in 1..((total/limit)|round(0, 'ceil'))%}
+                                    <li class="page-item {{ (page == item) ? 'active' : '' }}">
+                                        <a href="?page={{ item }}#discussion" class="page-link">{{ item }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
                     </section>
                 {% endif %}
 
