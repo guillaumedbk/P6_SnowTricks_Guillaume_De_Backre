@@ -43,6 +43,9 @@ class Trick
     #[ORM\Column(type: 'datetime')]
     private \DateTime $publishAt;
 
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private \DateTime $lastModified;
+
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Image::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\JoinColumn(onDelete: "CASCADE" )]
     /**
@@ -202,5 +205,17 @@ class Trick
     {
         $this->mainImage = $this->images->first();
     }
+
+    public function getLastModified(): \DateTime
+    {
+        return $this->lastModified;
+    }
+
+    public function setLastModified(\DateTime $lastModified): void
+    {
+        $this->lastModified = $lastModified;
+    }
+
+
 
 }

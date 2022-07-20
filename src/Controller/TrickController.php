@@ -63,6 +63,7 @@ class TrickController extends AbstractController
             'limit' => $limit,
             'page' => $page,
             'publishAt' => $trick->getPublishAt()->format(date("d-m-Y H:i:s")),
+            'lastModified' => $trick->getLastModified()->format(date("d-m-Y H:i:s")),
             'id' => $id,
             'createChatForm' => $form->createView()
         ]);
@@ -148,6 +149,7 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $trick->setTitle($modifiedTrickDTO->title);
             $trick->setDescription($modifiedTrickDTO->description);
+            $trick->setLastModified(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
 
             //RETRIEVE IMAGE(S)
             if($modifiedTrickDTO->images){
@@ -189,7 +191,7 @@ class TrickController extends AbstractController
 
         return $this->render('trick/modify_trick.html.twig', [
             'modifyTrickForm' => $form->createView(),
-            'trick' => $trick,
+            'trick' => $trick
         ]);
     }
 
