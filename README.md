@@ -16,7 +16,11 @@ php bin/console doctrine:database:create
 ```bash
 php bin/console doctrine:migrations:migrate
 ```
-3. Launch the Symfony Local Web Server
+3. Fixtures load
+```bash
+php bin/console hautelook:fixtures:load
+```
+4. Launch the Symfony Local Web Server
 ```bash
 cd my-project/
 symfony server:start
