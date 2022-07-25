@@ -89,7 +89,7 @@ class TrickController extends AbstractController
             $trick->setSlug();
 
             //RETRIEVE IMAGE(S)
-            if($newTrickDTO->images != null){
+            if($newTrickDTO->images !== null){
                 $images = $newTrickDTO->images->file;
                 //UPLOAD MANAGER
                 if($images){
