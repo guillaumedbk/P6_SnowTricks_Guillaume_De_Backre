@@ -54,7 +54,7 @@ class TrickController extends AbstractController
             //SAVE IN DB
             $entityManager->persist($chat);
             $entityManager->flush();
-            return $this->redirectToRoute('app_trick', ['title' => $trick->getTitle()]);
+            return $this->redirectToRoute('app_trick', ['slug' => $trick->getSlug()]);
         }
         return $this->render('trick/trick.html.twig',[
             'trick' => $trick,
