@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Trick{% endblock %}
+
+{% block body %}
+<div class="container container-form">
+    <h1 class="text-center text-uppercase text-warning fs-2">Ajouter un trick</h1>
+
+    {{ form_start(createTrickForm, {'attr': {'class': 'form bg-light m-2 p-4 rounded-3'}}) }}
+    {{ form_row(createTrickForm.title) }}
+    {{ form_row(createTrickForm.description) }}
+    <div id="create_trick_videoUrl" data-prototype="{{ form_row(createTrickForm.videoUrl.vars.prototype)|e('html_attr') }}">
+        {{ form_row(createTrickForm.videoUrl) }}
+        <span></span>
+    </div>
+    {{ form_row(createTrickForm.images) }}
+    <button type="submit" class="btn btn-warning btn-form">Submit</button>
+    {{ form_end(createTrickForm) }}
+</div>
+{% endblock %}
+
+

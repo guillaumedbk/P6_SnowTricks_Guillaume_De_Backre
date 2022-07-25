@@ -24,11 +24,9 @@
         <ul class="liens-navigation mb-0">
             <li class="px-3"><a class="liens" href="#tricks-part-homepage">Tricks</a></li>
             <li>|</li>
-            <li class="px-3"><a class="liens" href="{{ path('app_login') }}">Sign-In</a></li>
-            <li>|</li>
-            <li class="px-3"><a class="liens" href="{{ path('app_register') }}">Sign-Up</a></li>
-            <li>|</li>
+
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <li class="px-3"><a class="liens" href="{{ path('app_create_trick') }}">New Trick</a></li>
                 <div class="btn-group">
                     <button type="button" class="btn dropdown-toggle p-0 mx-2 text-success" data-bs-toggle="dropdown" aria-expanded="false">
                         CONNECTÉ
@@ -39,6 +37,8 @@
                     </ul>
                 </div>
             {% else %}
+                <li class="px-3"><a class="liens" href="{{ path('app_register') }}">Sign-Up</a></li>
+                <li>|</li>
                 <li class="nav-item mx-0 "><a class="nav-link p-0 px-0 px-lg-3 rounded text-white" href="{{ path('app_login') }}">Connexion</a></li>
             {% endif %}
         </ul>

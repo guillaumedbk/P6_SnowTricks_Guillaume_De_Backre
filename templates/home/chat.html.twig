@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Chat{% endblock %}
+
+{% block body %}
+
+    <div class="container container-form">
+        {{ form_start(createChatForm, {'attr': {'class': 'form bg-light m-2 p-4 rounded-3'}}) }}
+        {{ form_row(createChatForm.content) }}
+        <button type="submit" class="btn btn-warning">Submit</button>
+        {{ form_end(createChatForm) }}
+    </div>
+{% endblock %}

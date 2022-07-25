@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 class Image
 {
@@ -21,13 +22,14 @@ class Image
     private \DateTime $publishAt;
 
     #[ORM\ManyToOne(targetEntity: Trick::class, inversedBy: 'images')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private Trick $trick;
 
     //CONSTRUCTOR
     public function __construct(string $url, Trick $trick)
     {
         $this->url = $url;
+        $this->trick = $trick;
         $this->publishAt = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
     }
 
@@ -51,16 +53,4 @@ class Image
     {
         return $this->trick;
     }
-
-    public function setUrl(string $url): void
-    {
-        $this->url = $url;
-    }
-
-    public function setTrick(Trick $trick): void
-    {
-        $this->trick = $trick;
-    }
-
-
 }

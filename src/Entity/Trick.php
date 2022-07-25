@@ -20,16 +20,12 @@ class Trick
     private ?int $id = null;
 
         //title
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
     private string $title;
 
         //description
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description = null;
-
-        //imageUrl
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $imageUrl = null;
 
         //chats liaison
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Chat::class, orphanRemoval: true)]
@@ -38,7 +34,7 @@ class Trick
      */
     private Collection $chats;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Video::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Video::class, cascade: ['persist', 'remove'])]
     /**
      * @Collection<int, Video>
      */
@@ -47,11 +43,22 @@ class Trick
     #[ORM\Column(type: 'datetime')]
     private \DateTime $publishAt;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Image::class)]
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTime $lastModified = null;
+
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Image::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\JoinColumn(onDelete: "CASCADE" )]
     /**
      * @Collection<int, Image>
      */
     private Collection $images;
+
+    #[ORM\OneToOne(targetEntity: Image::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(onDelete: "SET NULL" )]
+    private ?Image $mainImage = null;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $slug;
 
     //CONSTRUCTOR
     public function __construct(string $title)
@@ -93,18 +100,6 @@ class Trick
         return $this;
     }
 
-    public function getImageUrl(): ?string
-    {
-        return $this->imageUrl;
-    }
-
-    public function setImageUrl(?string $imageUrl): self
-    {
-        $this->imageUrl = $imageUrl;
-
-        return $this;
-    }
-
     /**
      * @return iterable<Chat>
      */
@@ -127,8 +122,8 @@ class Trick
     {
         if ($this->chats->removeElement($chat)) {
             // set the owning side to null (unless already changed)
-            if ($chat->getTrickId() === $this) {
-                $chat->setTrickId(null);
+            if ($chat->getTrick() === $this) {
+                $chat->setTrick(null);
             }
         }
 
@@ -147,7 +142,7 @@ class Trick
     {
         if (!$this->videos->contains($video)) {
             $this->videos[] = $video;
-            $video->setTrickId($this);
+            $video->setTrick($this);
         }
 
         return $this;
@@ -157,8 +152,8 @@ class Trick
     {
         if ($this->videos->removeElement($video)) {
             // set the owning side to null (unless already changed)
-            if ($video->getTrickId() === $this) {
-                $video->setTrickId(null);
+            if ($video->getTrick() === $this) {
+                $video->setTrick(null);
             }
         }
 
@@ -182,7 +177,6 @@ class Trick
     {
         if (!$this->images->contains($image)) {
             $this->images[] = $image;
-            $image->setTrick($this);
         }
 
         return $this;
@@ -190,13 +184,55 @@ class Trick
 
     public function removeImage(Image $image): self
     {
-        if ($this->images->removeElement($image)) {
-            // set the owning side to null (unless already changed)
-            if ($image->getTrick() === $this) {
-                $image->setTrick(null);
-            }
+        $this->images->removeElement($image);
+        if($this->mainImage === $image){
+            $this->setMainImageWithFirstImage();
         }
 
+        return $this;
+    }
+
+    public function getMainImage(): ?Image
+    {
+        return $this->mainImage;
+    }
+
+    public function setMainImage(?Image $mainImage): self
+    {
+        $this->mainImage = $mainImage;
+
+        return $this;
+    }
+
+    public function setMainImageWithFirstImage(): void
+    {
+        $this->mainImage = $this->images->first();
+    }
+
+    public function getLastModified(): ?\DateTime
+    {
+        return $this->lastModified;
+    }
+
+    public function setLastModified(\DateTime $lastModified): void
+    {
+        $this->lastModified = $lastModified;
+    }
+
+    public function newSlug(string $title): string
+    {
+        return mb_strtolower(preg_replace(array('/[^a-zA-Z0-9 \'-]/', '/[ -\']+/', '/^-|-$/'),
+            array('', '-', ''), iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $title)));
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(): self
+    {
+        $this->slug = $this->newSlug($this->title);
         return $this;
     }
 

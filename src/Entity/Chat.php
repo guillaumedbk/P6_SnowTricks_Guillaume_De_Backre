@@ -24,8 +24,8 @@ class Chat
     private \DateTime $publishAt;
 
     #[ORM\ManyToOne(targetEntity: Trick::class, inversedBy: 'chats')]
-    #[ORM\JoinColumn(nullable: false)]
-    private Trick $trick;
+    #[ORM\JoinColumn(nullable: true, onDelete: "SET NULL")]
+    private ?Trick $trick;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'chats')]
     #[ORM\JoinColumn(nullable: false)]
