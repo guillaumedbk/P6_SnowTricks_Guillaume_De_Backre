@@ -33,7 +33,7 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         //REDIRECT IF USER ALREADY CONNECTED
-        if ($this->getUser()) {
+        if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')){
             return $this->redirectToRoute('app_homepage');
         }
 
